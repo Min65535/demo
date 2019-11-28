@@ -35,10 +35,13 @@ func readDataFromDb(conf *gorm.DB) {
 		log.QyLogger.Error("readDataFromDb error", zap.Error(err))
 		return
 	}
-	if len(data) > 0 {
-		closeTheBlock(conf, data)
+	//防止内存溢出
+	if len(TheData.Data) < 600 {
+		if len(data) > 0 {
+			closeTheBlock(conf, data)
+		}
+		TheData.SetData(data)
 	}
-	TheData.SetData(data)
 }
 
 func closeTheBlock(conf *gorm.DB, data []common.NameAndValue) {
