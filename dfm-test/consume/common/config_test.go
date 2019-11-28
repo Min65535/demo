@@ -10,9 +10,9 @@ import (
 
 func TestGetDbConfig(t *testing.T) {
 	var str string
-	str = `insert into dfm_test.case (name,value,block) values `
+	str = `insert into dfm_test.case (name,value,block,remark) values `
 	for i := 0; i < 5000; i++ {
-		str = str + `("` + strconv.Itoa(i) + `","q` + strconv.Itoa(i) + `","0"),`
+		str = str + `("` + strconv.Itoa(i) + `","q` + strconv.Itoa(i) + `","0",""),`
 	}
 	str = str[:len(str)-1]
 	if err := GetDbConfig().GetDB().Exec(str).Error; err != nil {

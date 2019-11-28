@@ -9,15 +9,14 @@ import (
 	"demo/dfm-test/consume/common"
 	_ "github.com/go-sql-driver/mysql"
 	"time"
-	"github.com/dipperin/go-ms-toolkit/json"
 )
 
 func init() {
 	//insert into dfm_test.case(name,value,block) values ("w","ww","0");
 	var str string
-	str = `insert into dfm_test.case (name,value,block) values `
+	str = `insert into dfm_test.case (name,value,block,remark) values `
 	for i := 0; i < 5000; i++ {
-		str = str + `("` + strconv.Itoa(i) + `","w` + strconv.Itoa(i) + `","0"),`
+		str = str + `("` + strconv.Itoa(i) + `","w` + strconv.Itoa(i) + `","0",""),`
 	}
 	str = str[:len(str)-1]
 	if err := common.GetDbConfig().GetDB().Exec(str).Error; err != nil {
@@ -29,11 +28,10 @@ func init() {
 var TheData common.AllData
 //var dbConf = common.GetDbConfig().GetDB()
 
-//读取数据//Exec(`select * from dfm_test.case where block = "0" order by id desc limit 150`)
+//读取数据
 func readDataFromDb(conf *gorm.DB) {
 	var data []common.NameAndValue
-	if err := conf.Table("case").Where("block = ?", "0").Order("id desc", true).Limit(150).Find(&data).Error; err != nil && err != gorm.ErrRecordNotFound {
-		//if err := common.GetDbConfig().GetDB().Exec(`select * from dfm_test.case where block = "0" order by id desc limit 150`).Scan().Error; err != nil && err != gorm.ErrRecordNotFound {
+	if err := conf.Table("case").Where("block = ? and remark = ?", "0", "").Order("id desc", true).Limit(150).Find(&data).Error; err != nil && err != gorm.ErrRecordNotFound {
 		log.QyLogger.Error("readDataFromDb error", zap.Error(err))
 		return
 	}
@@ -67,7 +65,7 @@ func addTheRemark(conf *gorm.DB, data []common.NameAndValue) {
 			strId = strId + strconv.Itoa(int(data[i].Id))
 		}
 	}
-	if err := conf.Table("case").Where(`id in (` + strId + `)`).Update(map[string]interface{}{"remark": "signed"}).Error; err != nil {
+	if err := conf.Table("case").Where(`id in (` + strId + `)`).Update(map[string]interface{}{"block": "0", "remark": "signed"}).Error; err != nil {
 		log.QyLogger.Error("addTheRemark exists an error", zap.Error(err))
 		return
 	}
@@ -77,6 +75,7 @@ func addTheRemark(conf *gorm.DB, data []common.NameAndValue) {
 
 func HugeTask(tasks chan func()) {
 
+	//Producer,生产初始化任务队列
 	go func() {
 		var dbConf = common.GetDbConfig().GetDB()
 		for {
@@ -85,35 +84,50 @@ func HugeTask(tasks chan func()) {
 		}
 	}()
 
+	//将任务放入channel
 	go func() {
 		var dbConf = common.GetDbConfig().GetDB()
 		for {
 			tasks <- func() {
 				data := TheData.GetData()
-				log.QyLogger.Info("GetData:", zap.String("data", json.StringifyJson(data)))
+				log.QyLogger.Info("len(data):", zap.String("data", strconv.Itoa(len(data))))
 				if len(data) > 0 {
 					addTheRemark(dbConf, data)
 				}
 			}
 			time.Sleep(10 * time.Second)
 		}
-
 	}()
 
+	//Consumer,从channel取出任务并执行
 	go func() {
 		for {
 			select {
 			case m := <-tasks:
 				m()
+				log.QyLogger.Info("goroutine 1 finish the task")
 			}
 		}
 	}()
 
+	//Consumer,从channel取出任务并执行
+	go func() {
+		for {
+			select {
+			case m := <-tasks:
+				m()
+				log.QyLogger.Info("goroutine 2 finish the task")
+			}
+		}
+	}()
+
+	////Consumer,从channel取出任务并执行
 	//go func() {
 	//	for {
 	//		select {
 	//		case m := <-tasks:
 	//			m()
+	//			log.QyLogger.Info("goroutine 3 finish the task")
 	//		}
 	//	}
 	//}()
