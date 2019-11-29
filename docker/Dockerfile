@@ -1,5 +1,5 @@
 FROM basesystem:1.0
-MAINTAINER qy
+MAINTAINER tem
 
 # 时区设置成当前时区
 RUN cp -f /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
