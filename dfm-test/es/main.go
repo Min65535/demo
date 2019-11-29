@@ -33,11 +33,11 @@ func main() {
 	reqStr := `{
 		"query":{
 			"match":{
-				"order_no":"Qr20190723000001"
+				"order_no":"tem20190723000001"
 			}
 		}
 	}`
-	req, _ := http.NewRequest("POST", "/approval_order_ind/duplicate_feature_data_phl/_search", strings.NewReader(reqStr))
+	req, _ := http.NewRequest("POST", "/approval_order_tem/duplicate_feature_data_tem/_search", strings.NewReader(reqStr))
 	req.Header.Set("Content-Type", "application/json")
 	res, err := esDao.Perform(req)
 	if err != nil {
