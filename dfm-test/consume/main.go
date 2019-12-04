@@ -25,25 +25,6 @@ func init() {
 	}
 }
 
-var TheData common.AllData
-//var dbConf = common.GetDbConfig().GetDB()
-
-//读取数据
-func readDataFromDb(conf *gorm.DB) {
-	var data []common.NameAndValue
-	if err := conf.Table("case").Where("block = ? and remark = ?", "0", "").Order("id desc", true).Limit(150).Find(&data).Error; err != nil && err != gorm.ErrRecordNotFound {
-		log.QyLogger.Error("readDataFromDb error", zap.Error(err))
-		return
-	}
-	//防止内存溢出
-	if len(TheData.Data) < 600 {
-		if len(data) > 0 {
-			closeTheBlock(conf, data)
-		}
-		TheData.SetData(data)
-	}
-}
-
 func closeTheBlock(conf *gorm.DB, data []common.NameAndValue) {
 	strId := ``
 	for i := range data {
@@ -74,31 +55,44 @@ func addTheRemark(conf *gorm.DB, data []common.NameAndValue) {
 	}
 }
 
+func getDataFromDb(conf *gorm.DB) (data []common.NameAndValue, err error) {
+	if err = conf.Table("case").Where("block = ? and remark = ?", "0", "").Order("id asc", true).Limit(120).Find(&data).Error; err != nil && err != gorm.ErrRecordNotFound {
+		log.QyLogger.Error("getDataFromDb error", zap.Error(err))
+	}
+	return
+}
+
 //---------------------------whole tasks--------------------------//
 
 func HugeTask(tasks chan func()) {
-
-	//Producer,生产初始化任务队列
+	dataChan := make(chan []common.NameAndValue)
+	//Producer,生产数据
 	go func() {
 		var dbConf = common.GetDbConfig().GetDB()
 		for {
-			readDataFromDb(dbConf)
-			time.Sleep(5 * time.Second)
+			arr, err := getDataFromDb(dbConf)
+			if err != nil {
+				return
+			}
+			if len(arr) < 1 {
+				time.Sleep(5 * time.Second)
+				continue
+			}
+			closeTheBlock(dbConf, arr)
+			dataChan <- arr
 		}
 	}()
 
-	//将任务放入channel
+	//将数据放入任务channel
 	go func() {
 		var dbConf = common.GetDbConfig().GetDB()
 		for {
-			tasks <- func() {
-				data := TheData.GetData()
-				log.QyLogger.Info("len(data):", zap.String("data", strconv.Itoa(len(data))))
-				if len(data) > 0 {
+			select {
+			case data := <-dataChan:
+				tasks <- func() {
 					addTheRemark(dbConf, data)
 				}
 			}
-			time.Sleep(10 * time.Second)
 		}
 	}()
 
