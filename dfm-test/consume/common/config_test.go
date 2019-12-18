@@ -6,6 +6,7 @@ import (
 	"github.com/dipperin/go-ms-toolkit/log"
 	"go.uber.org/zap"
 	_ "github.com/go-sql-driver/mysql"
+	"fmt"
 )
 
 func TestGetDbConfig(t *testing.T) {
@@ -19,4 +20,12 @@ func TestGetDbConfig(t *testing.T) {
 		log.QyLogger.Error("insert data to db exists an error", zap.Error(err))
 		return
 	}
+}
+
+func TestNew(t *testing.T) {
+	var data NameAndValue
+	conf := GetDbConfig().GetDB()
+	conf.LogMode(false)
+	sign := conf.Table("case").Where("name=?", "ww").First(&data).RecordNotFound()
+	fmt.Println("sign:", sign)
 }

@@ -6,7 +6,6 @@ import (
 	"image"
 	_ "image/gif"
 	_ "image/jpeg"
-	"image/png"
 	"math"
 	"os"
 	"os/exec"
@@ -14,6 +13,7 @@ import (
 	"strings"
 	"runtime"
 	"errors"
+	"image/jpeg"
 )
 
 const DEFAULT_MAX_WIDTH float64 = 320
@@ -57,8 +57,10 @@ func makeThumbnail(imagePath, savePath string) (string, error) {
 	imgFile, _ := os.Create(savePath)
 	defer imgFile.Close()
 
-	// 以PNG格式保存文件
-	err = png.Encode(imgFile, m)
+	//// 以png格式保存文件
+	//err = png.Encode(imgFile, m)
+	// 以jpeg格式保存文件
+	err = jpeg.Encode(imgFile, m, &jpeg.Options{Quality: 100})
 	if err != nil {
 		fmt.Println("png.Encode err:", err.Error())
 		return "", err
@@ -93,7 +95,7 @@ func pathGet() (path string, err error) {
 
 func main() {
 	enter, _ := pathGet()
-	str, err := makeThumbnail(enter+"mei.jpg", "mei1.png")
+	str, err := makeThumbnail(enter+"haha.jpg", "ha1.jpg")
 	if err != nil {
 		fmt.Println("err:", err)
 	}
