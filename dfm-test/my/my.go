@@ -75,7 +75,7 @@ func ping() {
 }
 
 func Love() {
-	timer := time.NewTimer(2 * time.Minute) // 新建一个Timer
+	timer := time.NewTimer(1 * time.Minute) // 新建一个Timer
 	//timer := time.NewTimer(2 * time.Second) // 新建一个Timer
 
 	for {
@@ -83,7 +83,7 @@ func Love() {
 		case <-timer.C:
 			fmt.Println("my timer start")
 			ping()
-			timer.Reset(2 * time.Minute) // 上一个when执行完毕重新设置
+			timer.Reset(1 * time.Minute) // 上一个when执行完毕重新设置
 			//timer.Reset(2 * time.Second) // 上一个when执行完毕重新设置
 		}
 	}
