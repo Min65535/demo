@@ -15,7 +15,7 @@ import (
 func main() {
 	hn := os.Getenv("HOSTNAME")
 	if hn == "" {
-		os.Setenv("HOSTNAME", "ali-test1")
+		os.Setenv("HOSTNAME", "ali-test2")
 	}
 	fmt.Println("HOSTNAME:", os.Getenv("HOSTNAME"))
 	docker := qyenv.GetDockerEnv()
@@ -34,7 +34,7 @@ func Ha() {
 	for {
 		select {
 		case <-timer.C:
-			log.QyLogger.Error("RegisterErr", zap.Error(errors.New("fail to register at "+time.Now().Format("2006-01-02 15:04:05"))))
+			log.QyLogger.Info("RegisterErr", zap.Error(errors.New("fail to register at "+time.Now().Format("2006-01-02 15:04:05"))))
 			timer.Reset(1 * time.Minute) // 上一个when执行完毕重新设置
 			//timer.Reset(2 * time.Second) // 上一个when执行完毕重新设置
 		}
