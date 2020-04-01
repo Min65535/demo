@@ -17,12 +17,12 @@ func main() {
 	if hn == "" {
 		os.Setenv("HOSTNAME", "ali-test1")
 	}
-	fmt.Println("HOSTNAME:", hn)
+	fmt.Println("HOSTNAME:", os.Getenv("HOSTNAME"))
 	docker := qyenv.GetDockerEnv()
 	if docker == "" {
 		os.Setenv("docker_env", "1")
 	}
-	fmt.Println("DockerEnv:", docker)
+	fmt.Println("DockerEnv:", qyenv.GetDockerEnv())
 	InitLogger("ali")
 	Ha()
 }
@@ -50,6 +50,7 @@ func InitLogger(rename ...string) {
 		if len(rename) > 1 {
 			logNameSuffix += "_" + rename[0]
 		}
+		fmt.Println("logNameSuffix:", logNameSuffix)
 		dockerLogDir := filepath.Join("/var/log/qy", logNameSuffix)
 		if err := os.MkdirAll(dockerLogDir, 0755); err != nil {
 			panic(err)
@@ -58,6 +59,8 @@ func InitLogger(rename ...string) {
 		if podName == "" {
 			panic("can't get HOSTNAME from env")
 		}
+		fmt.Println("dockerLogDir:", dockerLogDir)
+		fmt.Println("podName:", podName)
 		log.InitLoggerWithCaller(zapcore.DebugLevel, dockerLogDir, podName+".log", true)
 	}
 }
