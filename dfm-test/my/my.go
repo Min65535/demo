@@ -38,8 +38,8 @@ func pathGet() (path string, err error) {
 
 func main() {
 
-	//go Love() // 起一个协程去执行定时任务
-	go Love() // 起一个协程去执行定时任务
+	//go Ha() // 起一个协程去执行定时任务
+	go Ha() // 起一个协程去执行定时任务
 
 	stop := 0
 	for {
@@ -74,7 +74,7 @@ func ping() {
 	log.Println("the result of ping:", b)
 }
 
-func Love() {
+func Ha() {
 	timer := time.NewTimer(1 * time.Minute) // 新建一个Timer
 	//timer := time.NewTimer(2 * time.Second) // 新建一个Timer
 
