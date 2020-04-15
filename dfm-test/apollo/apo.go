@@ -7,14 +7,16 @@ import (
 
 func MyApolloDemo() {
 	if err := agollo.StartWithConf(&agollo.Conf{
-		AppID:          "demo",
-		Cluster:        "default",
-		NameSpaceNames: []string{"xl-dev"},
-		//IP:             "172.30.9.76:10071",
-		IP:             "172.30.9.75:20180",
+		AppID:          "dfm",
+		Cluster:        "dfm-test",
+		NameSpaceNames: []string{"manage","default"},
+		IP:             "172.30.9.76:8090",
+		//IP:             "172.30.9.75:20180",
 	}); err != nil {
-		panic(err)
+		fmt.Println("err:", err.Error())
+		return
+		//panic(err)
 	}
-
-	fmt.Println("msg:",agollo.GetStringValue("msg", ""))
+	fmt.Println("namespace:", agollo.GetAllKeys("manage"))
+	fmt.Println("msg:", agollo.GetStringValue("msg", ""))
 }
