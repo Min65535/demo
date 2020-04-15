@@ -1,6 +1,6 @@
 ## 日志库
-配置名称：gotocash-gapi-gateway
-日志路径:/data/nfs_ind_prod/qy-log/api-gateway /∗∗/ *.log
+配置名称：gapi-gateway
+日志路径:/data/nfs_prod/xx-log/api-gateway /∗∗/ *.log
 模式: 完整正则模式
 单行模式:关
 日志样例:2020-04-01 16:52:43.918 warn    gapigateway-deployment-548485fb6b-fkb8b    main.Ha:37     RegisterErr  {"error": "fail to register at 2020-04-01 16:52:43"}
@@ -12,7 +12,7 @@
 日志抽取内容: key|value
 sys_time|2019-12-23 13:53:21.114
 level|warn
-thread|ind-gapigateway-deployment-548485fb6b-fkb8b
+thread|gapigateway-deployment-548485fb6b-fkb8b
 content|main.Ha:37     RegisterErr  {"error": "fail to register at 2020-04-01 16:52:43"}
 
 
