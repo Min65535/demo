@@ -10,12 +10,13 @@
 行首正则表达式:\d+-\d+-\d+\s\d+:\d+:\d+\.\d+\s.*
 
 提取字段:开
-正则:(\d+-\d+-\d+\s\S+)\s(\w+)\s+(\S+)\s+(.*)
+正则:(\d+-\d+-\d+\s\S+)\s(\w+)\s+(\S+)\s+(\S+:\d+)\s+(.*)
 日志抽取内容: key|value
 sys_time|2019-12-23 13:53:21.114
 level|warn
-thread|gapigateway-deployment-548485fb6b-fkb8b
-content|main.Ha:37     RegisterErr  {"error": "fail to register at 2020-04-01 16:52:43"}
+pod|gapigateway-deployment-548485fb6b-fkb8b
+caller|main.Ha:37
+content|RegisterErr  {"error": "fail to register at 2020-04-01 16:52:43"}
 
 #### mysql-log
 配置名称：slow-log-node
@@ -88,7 +89,7 @@ sys_time
 通知列表
  *短信
   ** 手机号码：
-  ** 发送内容：${Results[0].FireResult}
+  ** 发送内容：${Results[0].FireResult.content}
  *邮件
   ** 收件人：
   ** 主题：
