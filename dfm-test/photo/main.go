@@ -102,7 +102,7 @@ func main() {
 	if name == "" {
 		panic("fail to get the photo name")
 	}
-	str, err := makeThumbnail(enter+"1502071829.jpg", "ha1.jpg")
+	str, err := makeThumbnail(enter+name, "ha1.png")
 	if err != nil {
 		fmt.Println("err:", err)
 	}
