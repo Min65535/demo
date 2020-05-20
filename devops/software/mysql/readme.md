@@ -1,4 +1,5 @@
 ## change the log dir
+```text
 SHOW  GLOBAL VARIABLES LIKE '%slow%';
 set global slow_query_log=1
 set global slow_query_log_file='/data/mysql-slow/dfm-pc-slow.log'
@@ -17,19 +18,19 @@ ERROR 29 (HY000): File (Errcode: 13 - Permission denied)
 /data/mysql-slow/* rw,
 
 sudo /etc/init.d/apparmor reload
-
+```
 
 ## reload mysql slave
 ```text
-CHANGE MASTER TO MASTER_HOST='192.168.199.8',MASTER_USER='xx',MASTER_PASSWORD='xxxxxxx',MASTER_PORT=3306,MASTER_LOG_FILE='mysql-bin.000059',MASTER_LOG_POS=545830;
+mysql> CHANGE MASTER TO MASTER_HOST='192.168.xxx.x',MASTER_USER='xx',MASTER_PASSWORD='xxxxxxx',MASTER_PORT=3306,MASTER_LOG_FILE='mysql-bin.000059',MASTER_LOG_POS=545830;
 
-start slave;
+mysql> start slave;
 
 mysql> show slave status\G;
 *************************** 1. row ***************************
                Slave_IO_State: Waiting for master to send event
-                  Master_Host: 192.168.199.8
-                  Master_User: xl
+                  Master_Host: 192.168.xxx.x
+                  Master_User: xx
                   Master_Port: 3306
                 Connect_Retry: 60
               Master_Log_File: mysql-bin.000060
