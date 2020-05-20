@@ -1,19 +1,20 @@
 package main
 
 import (
+	"errors"
+	"flag"
 	"fmt"
 	"github.com/nfnt/resize"
 	"image"
 	_ "image/gif"
 	_ "image/jpeg"
+	"image/png"
 	"math"
 	"os"
 	"os/exec"
 	"path/filepath"
-	"strings"
 	"runtime"
-	"errors"
-	"image/png"
+	"strings"
 )
 
 const DEFAULT_MAX_WIDTH float64 = 320
@@ -94,8 +95,14 @@ func pathGet() (path string, err error) {
 }
 
 func main() {
+	var name string
 	enter, _ := pathGet()
-	str, err := makeThumbnail(enter+"1502071829.jpg", "ha1.jpg")
+	flag.StringVar(&name, "name", "", "文件名称")
+	flag.Parse()
+	if name == "" {
+		panic("fail to get the photo name")
+	}
+	str, err := makeThumbnail(enter+name, "ha1.png")
 	if err != nil {
 		fmt.Println("err:", err)
 	}
