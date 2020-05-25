@@ -12,6 +12,7 @@ require (
 	github.com/nfnt/resize v0.0.0-20180221191011-83c6a9932646
 	github.com/philchia/agollo v2.1.0+incompatible
 	github.com/thinkeridea/go-extend v1.1.1
+	github.com/thinkerou/favicon v0.1.0
 	github.com/tidwall/gjson v1.2.1
 	go.uber.org/zap v1.13.0
 )
