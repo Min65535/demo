@@ -23,5 +23,5 @@ vendor/
 
 *.json
 
-devops/network/50-cloud-init.yaml
+test.*
 *.txt
