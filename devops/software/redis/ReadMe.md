@@ -53,3 +53,30 @@ requirepass 123456 修改默认密码，查找 requirepass foobared 将 foobared
 查看所有keys
 #127.0.0.1:6379> keys *
 ```
+
+## redis 备份和恢复
+```text
+redis 数据的路径(其实备份和恢复就是cp)
+
+导出：Redis写数据时先写到一个temp文件中，然后再把temp文件重命名为预定义的文件，所以即使Redis在运行，也可以直接用cp命令拷贝这个文件。
+
+恢复：关闭Redis后直接覆盖掉demo.rdb，然后重启即可。
+
+通过配置文件查看
+#vim /etc/redis.conf
+dbfilename dump.rdb
+dir var/lib/redis
+​
+​
+进行备份：
+# redis-cli -h 192.168.25.65 -p 6379 -a "123456"
+192.168.25.65:6379> ping
+PONG
+192.168.25.65:6379> SAVE //该命令将在 redis 安装目录中创建dump.rdb文件。
+OK
+​
+进行恢复：
+192.168.25.65:6379> CONFIG GET dir   //命令 CONFIG GET dir 输出的 redis 备份目录为 /var/lib/redis。
+1) "dir"
+2) "/var/lib/redis"
+```
