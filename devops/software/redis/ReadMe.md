@@ -38,3 +38,18 @@ ln -s /usr/local/redis/redis-5.0.8/src/redis-cli /usr/bin/redis-cli
 
 redis-cli --version
 ```
+
+## 修改配置文件
+```text
+# vim /etc/redis.conf
+bind 127.0.0.1  //注释掉此行，不然只能本地访问 #bind 127.0.0.1
+protected-mode yes    保护模式修改为no #product-mode no (关闭protected-mode模式,此时外部网络可以直接访问;开启protected-mode保护模式,需配置bind ip或者设置访问密码)
+requirepass 123456 修改默认密码，查找 requirepass foobared 将 foobared 修改为你的密码
+
+输入用户名密码 (auth  123456)
+#127.0.0.1:6379> auth 123456
+查看信息
+#127.0.0.1:6379> info
+查看所有keys
+#127.0.0.1:6379> keys *
+```
