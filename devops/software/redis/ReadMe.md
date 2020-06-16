@@ -102,7 +102,7 @@ OK
 ​
 (2)bind 192.168.25.64  #定IP也(可以注释掉，这样任何桌面客户端都可以连接了)
 ​
-(3)dir /usr/local/redis-cluster/3680 #指定文件存放路径 ( .rdb .aof nodes-xxxx.conf 这样的文件都会在此路径下)
+(3)dir /usr/local/redis-cluster/6380 #指定文件存放路径 ( .rdb .aof nodes-xxxx.conf 这样的文件都会在此路径下)
 ​
 (4)cluster-enabled yes   #启动集群模式 
 ​
