@@ -26,33 +26,34 @@ func GetRedisClusterAddrArray() []string {
 	if useDocker == 1 {
 		fmt.Println("采用的是dev容器的配置")
 		var array = []string{
-			"redis-cluster-node-1.default.svc.cluster.local:6380",
-			"redis-cluster-node-2.default.svc.cluster.local:6382",
-			"redis-cluster-node-3.default.svc.cluster.local:6384",
-			"redis-cluster-node-4.default.svc.cluster.local:6381",
-			"redis-cluster-node-5.default.svc.cluster.local:6383",
-			"redis-cluster-node-6.default.svc.cluster.local:6385",
+			//"redis-cluster-node-1.default.svc.cluster.local:6379",
+			//"redis-cluster-node-2.default.svc.cluster.local:6379",
+			//"redis-cluster-node-3.default.svc.cluster.local:6379",
+			//"redis-cluster-node-4.default.svc.cluster.local:6379",
+			//"redis-cluster-node-5.default.svc.cluster.local:6379",
+			//"redis-cluster-node-6.default.svc.cluster.local:6379",
+			"redis-cluster-service.default.svc.cluster.local:6379",
 		}
 		clusterAddrArray = append(clusterAddrArray, array...)
 	} else if useDocker == 2 {
 		fmt.Println("采用的是prod生产的配置")
 		var array = []string{
-			"redis-cluster-node-1.default.svc.cluster.local:6380",
-			"redis-cluster-node-2.default.svc.cluster.local:6381",
-			"redis-cluster-node-3.default.svc.cluster.local:6383",
-			"redis-cluster-node-4.default.svc.cluster.local:6382",
-			"redis-cluster-node-5.default.svc.cluster.local:6384",
-			"redis-cluster-node-6.default.svc.cluster.local:6385",
+			"redis-cluster-node-1.default.svc.cluster.local:6379",
+			"redis-cluster-node-2.default.svc.cluster.local:6379",
+			"redis-cluster-node-3.default.svc.cluster.local:6379",
+			"redis-cluster-node-4.default.svc.cluster.local:6379",
+			"redis-cluster-node-5.default.svc.cluster.local:6379",
+			"redis-cluster-node-6.default.svc.cluster.local:6379",
 		}
 		clusterAddrArray = append(clusterAddrArray, array...)
 	} else {
-		fmt.Println("采用的是非docker环境的配置")
-		clusterAddrArray = append(clusterAddrArray, "127.0.0.1:6379")
+		fmt.Println("采用的是非docker环境的配置,请自己组建集群")
+		//clusterAddrArray = append(clusterAddrArray, "127.0.0.1:6379")
 	}
 	return clusterAddrArray
 }
 
-func getRedisClusterConfig() *redis.ClusterOptions {
+func GetRedisClusterConfig() *redis.ClusterOptions {
 	return &redis.ClusterOptions{
 		//Addrs: []string{
 		//	//"172.29.58.184:6380",
@@ -94,7 +95,7 @@ func main() {
 	flag.StringVar(&value, "value", "", "key value")
 	flag.StringVar(&get, "get", "", "get key")
 	flag.Parse()
-	cli := makeRedisCluster(getRedisClusterConfig())
+	cli := makeRedisCluster(GetRedisClusterConfig())
 
 	switch {
 	case get != "":
