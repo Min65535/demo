@@ -38,10 +38,10 @@ if [ $1 == "prod" ];then
 fi
 
 #echo "delete the old image"
-docker rmi -f ${image_name}
+go rmi -f ${image_name}
 echo -e "\n create the new docker image"
-docker build -f ./Dockerfile -t ${image_name} ./
+go build -f ./Dockerfile -t ${image_name} ./
 
 if [ $2 ];then
-    docker push ${image_name}
+    go push ${image_name}
 fi

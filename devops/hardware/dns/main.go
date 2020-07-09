@@ -16,7 +16,7 @@ var limit int64
 var timeoutCount int64
 
 func main() {
-	// os.Args = append(os.Args, "-host", "www.baidu.com", "-c", "200", "-d", "30", "-l", "5000")
+	// os.Args = append(os.Args, "-host", "www.baidu.composite", "-c", "200", "-d", "30", "-l", "5000")
 
 	flag.StringVar(&host, "host", "", "Resolve host")
 	flag.IntVar(&connections, "c", 100, "Connections")

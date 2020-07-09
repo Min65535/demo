@@ -10,5 +10,5 @@ if [[ ! ${env} ]];then
 fi
 
 db_env=${env} go run db.go drop
-db_env=${env} go run db.go create
+db_env=${env} go run db.go creation
 db_env=${env} go run db.go migrate

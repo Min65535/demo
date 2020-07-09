@@ -82,7 +82,7 @@ func PrintResp() gin.HandlerFunc {
 	}
 }
 
-// 处理 docker 中 log 到 /var/log/qy 中
+// 处理 go 中 log 到 /var/log/qy 中
 func InitLogger(rename ...string) {
 	switch qyenv.GetDockerEnv() {
 	case "", "0":

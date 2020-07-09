@@ -1,4 +1,4 @@
-package ord
+package command
 
 import (
 	"testing"
