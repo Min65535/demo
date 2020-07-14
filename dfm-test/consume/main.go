@@ -1,13 +1,13 @@
 package main
 
 import (
-	"sync"
-	"github.com/jinzhu/gorm"
+	"demo/dfm-test/consume/common"
 	"github.com/dipperin/go-ms-toolkit/log"
+	_ "github.com/go-sql-driver/mysql"
+	"github.com/jinzhu/gorm"
 	"go.uber.org/zap"
 	"strconv"
-	"demo/dfm-test/consume/common"
-	_ "github.com/go-sql-driver/mysql"
+	"sync"
 	"time"
 )
 
@@ -65,6 +65,7 @@ func getDataFromDb(conf *gorm.DB) (data []common.NameAndValue, err error) {
 //---------------------------whole tasks--------------------------//
 
 func HugeTask(tasks chan func()) {
+
 	dataChan := make(chan []common.NameAndValue)
 	//Producer,生产数据
 	go func() {
@@ -80,6 +81,20 @@ func HugeTask(tasks chan func()) {
 			}
 			closeTheBlock(dbConf, arr)
 			dataChan <- arr
+
+			//select {
+			//case <-time.After(1 * time.Second):
+			//	arr, err := getDataFromDb(dbConf)
+			//	if err != nil {
+			//		return
+			//	}
+			//	if len(arr) < 1 {
+			//		continue
+			//	}
+			//	closeTheBlock(dbConf, arr)
+			//	dataChan <- arr
+			//}
+
 		}
 	}()
 

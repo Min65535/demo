@@ -2,6 +2,7 @@ package singleton
 
 import (
 	"fmt"
+	"reflect"
 	"sync"
 	"time"
 )
@@ -84,4 +85,20 @@ func checkOnce() {
 			return
 		}
 	}
+}
+
+type M struct {
+	X string
+	I int
+	F float64
+	V map[string]string
+	//A []string
+}
+
+func CreatePointer() bool {
+	//return new(int)
+
+	var q = M{X: "as", I: 1, F: 0.7, V: map[string]string{"ss": "ss"}}
+	var a = M{X: "as", I: 1, F: 0.7, V: map[string]string{"ss": "ss"}}
+	return reflect.DeepEqual(q, a)
 }

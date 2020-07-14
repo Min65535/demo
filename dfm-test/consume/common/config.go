@@ -15,7 +15,7 @@ func init() {
 	DbConfig.MaxOpenConns = 100
 }
 
-func GetDbConfig() (mysql.DB) {
+func GetDbConfig() mysql.DB {
 	//DbConfig = db_config.NewDbConfig()
 	//DbConfig.DbName = "dfm_test"
 	return mysql.MakeDB(DbConfig)
