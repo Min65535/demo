@@ -1,9 +1,9 @@
 ## do one
 ```text
-go的调度
-go struct能不能比较
+go的调度 (done)
+go struct能不能比较 (done)
 go defer(for defer)
-select可以用于什么
+select可以用于什么 (done)
 context包的用途
 client如何实现长连接
 主协程如何等其余协程完再操作
