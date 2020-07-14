@@ -91,14 +91,20 @@ type M struct {
 	X string
 	I int
 	F float64
-	V map[string]string
-	//A []string
+	//V map[string]string
+	A []byte
+	C chan int
 }
 
 func CreatePointer() bool {
 	//return new(int)
-
-	var q = M{X: "as", I: 1, F: 0.7, V: map[string]string{"ss": "ss"}}
-	var a = M{X: "as", I: 1, F: 0.7, V: map[string]string{"ss": "ss"}}
+	qc := make(chan int, 1)
+	qc <- 1
+	ac := make(chan int, 1)
+	ac <- 1
+	//var q = M{X: "as", I: 1, F: 0.7, V: map[string]string{"ss": "ss"}}
+	var q = M{X: "as", I: 1, F: 0.7, A: []byte{2}, C: qc}
+	//var a = M{X: "as", I: 1, F: 0.7, V: map[string]string{"ss": "ss"}}
+	var a = M{X: "as", I: 1, F: 0.7, A: []byte{2}, C: ac}
 	return reflect.DeepEqual(q, a)
 }
