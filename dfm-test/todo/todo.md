@@ -2,7 +2,7 @@
 ```text
 go的调度 (done)
 go struct能不能比较 (done)
-go defer(for defer)
+go defer(for defer) (done)
 select可以用于什么 (done)
 context包的用途
 client如何实现长连接
