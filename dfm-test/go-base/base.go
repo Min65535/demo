@@ -74,7 +74,7 @@ func goodbye(s string) {
 	fmt.Println("Goodbye, " + s)
 }
 
-//defer
+//defer关文件，关锁，关建立的链接
 func LazyDefer() {
 	defer goodbye("1")
 	defer goodnight("1")
@@ -82,4 +82,42 @@ func LazyDefer() {
 	return
 	defer goodbye("2")
 	defer goodnight("2")
+}
+
+//defer and return value
+func DeferAndReturn() (result int) {
+	defer func() {
+		result++
+	}()
+	return 0
+}
+
+func DeferAndReturn1() (r int) {
+	t := 5
+	defer func() {
+		t = t + 5
+	}()
+	return t
+}
+
+func DeferAndReturn2() (r int) {
+	defer func(r int) {
+		r = r + 5
+	}(r)
+	return 1
+}
+
+func DeferAndReturn3() (r int) {
+	r = 2
+	//r值传递进去，并没有将r值自身增加
+	defer func(i int) {
+		i = i + 5
+		//r++
+		fmt.Println("de i:,", i)
+		fmt.Println("de r:,", r)
+		fmt.Println("de r:,", &r)
+	}(r)
+	fmt.Println("r:", r)
+	fmt.Println("r.pointer:", &r)
+	return
 }

@@ -17,3 +17,10 @@ func TestCreatePointer(t *testing.T) {
 func TestLazyDefer(t *testing.T) {
 	LazyDefer()
 }
+
+func TestDeferAndReturn(t *testing.T) {
+	fmt.Println(DeferAndReturn())
+	fmt.Println(DeferAndReturn1())
+	fmt.Println(DeferAndReturn2())
+	fmt.Println(DeferAndReturn3())
+}
