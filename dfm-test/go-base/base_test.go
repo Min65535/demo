@@ -19,8 +19,8 @@ func TestLazyDefer(t *testing.T) {
 }
 
 func TestDeferAndReturn(t *testing.T) {
-	fmt.Println(DeferAndReturn())
-	fmt.Println(DeferAndReturn1())
-	fmt.Println(DeferAndReturn2())
-	fmt.Println(DeferAndReturn3())
+	fmt.Println("DeferAndReturn:", DeferAndReturn())
+	fmt.Println("DeferAndReturn1:", DeferAndReturn1())
+	fmt.Println("DeferAndReturn2:", DeferAndReturn2())
+	fmt.Println("DeferAndReturn3:", DeferAndReturn3())
 }
