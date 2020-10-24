@@ -1,14 +1,14 @@
 package main
 
 import (
-	"github.com/elastic/go-elasticsearch/v7"
-	"log"
-	"github.com/dipperin/go-ms-toolkit/json"
-	"net/http"
 	"fmt"
+	"github.com/dipperin/go-ms-toolkit/json"
+	"github.com/elastic/go-elasticsearch/v7"
 	"github.com/elastic/go-elasticsearch/v7/estransport"
-	"os"
 	"io/ioutil"
+	"log"
+	"net/http"
+	"os"
 	"strings"
 )
 

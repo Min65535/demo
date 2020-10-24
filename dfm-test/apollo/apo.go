@@ -9,7 +9,7 @@ func MyApolloDemo() {
 	if err := agollo.StartWithConf(&agollo.Conf{
 		AppID:          "dfm",
 		Cluster:        "dfm-test",
-		NameSpaceNames: []string{"manage","default"},
+		NameSpaceNames: []string{"manage", "default"},
 		IP:             "172.30.9.76:8090",
 		//IP:             "172.30.9.75:20180",
 	}); err != nil {

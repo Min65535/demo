@@ -2,7 +2,7 @@ package composite
 
 import "testing"
 
-func TestComposite(t *testing.T)  {
+func TestComposite(t *testing.T) {
 	root := NewComponent(CompositeNode, "root")
 	c1 := NewComponent(CompositeNode, "c1")
 	c2 := NewComponent(CompositeNode, "c2")

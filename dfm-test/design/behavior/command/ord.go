@@ -16,11 +16,9 @@ func (tv TV) ChangeChannel() {
 	fmt.Println("换台")
 }
 
-
 type Command interface {
 	Execute()
 }
-
 
 func NewCommand(t string, tv TV) Command {
 	switch t {
@@ -64,7 +62,6 @@ type ChangeChannelCommand struct {
 func (ccc ChangeChannelCommand) Execute() {
 	ccc.receiver.ChangeChannel()
 }
-
 
 type Invoke struct {
 	Command

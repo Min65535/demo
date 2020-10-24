@@ -14,7 +14,7 @@ type Component interface {
 }
 
 const (
-	LeafNode      = iota
+	LeafNode = iota
 	CompositeNode
 )
 

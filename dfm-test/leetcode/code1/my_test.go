@@ -1,9 +1,9 @@
 package code1
 
 import (
-	"testing"
 	"fmt"
 	"sort"
+	"testing"
 )
 
 type ArrSt struct {
@@ -19,7 +19,7 @@ func min(input map[int]ArrSt) (data int) {
 func mySort(arr []int) (data []int) {
 	my := make(map[int]ArrSt)
 	for i := range arr {
-		if _,ok :=my[i];ok {
+		if _, ok := my[i]; ok {
 			//if my[i].Num>
 		}
 		my[i] = ArrSt{i, arr[i]}

@@ -1,12 +1,12 @@
 package common
 
 import (
-	"testing"
-	"strconv"
-	"github.com/dipperin/go-ms-toolkit/log"
-	"go.uber.org/zap"
-	_ "github.com/go-sql-driver/mysql"
 	"fmt"
+	"github.com/dipperin/go-ms-toolkit/log"
+	_ "github.com/go-sql-driver/mysql"
+	"go.uber.org/zap"
+	"strconv"
+	"testing"
 )
 
 func TestGetDbConfig(t *testing.T) {

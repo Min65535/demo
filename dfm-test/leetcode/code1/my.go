@@ -1,8 +1,8 @@
 package code1
 
 import (
-	"sort"
 	"fmt"
+	"sort"
 )
 
 const (
@@ -83,8 +83,7 @@ func SortTheCardsGroupArr(param []Group) (data []Group) {
 	return
 }
 
-
-func GetInt(arr [] int) int {
+func GetInt(arr []int) int {
 	sort.Ints(arr)
 	fmt.Println("arr:", arr)
 	return arr[len(arr)/2]

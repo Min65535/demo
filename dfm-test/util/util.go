@@ -109,7 +109,6 @@ func HttpReq(r *http.Request) (*http.Response, error) {
 	return httpClient.Do(r)
 }
 
-
 func RenderSuccess(c *gin.Context, resultJson interface{}) {
 	c.JSON(200, resultJson)
 }

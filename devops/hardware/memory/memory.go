@@ -1,9 +1,9 @@
 package main
 
 import (
+	"fmt"
 	"runtime"
 	"syscall"
-	"fmt"
 )
 
 type MemStatus struct {

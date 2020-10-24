@@ -99,4 +99,3 @@ func (l *locker) Lock(key interface{}) error {
 func (l *locker) Unlock(key interface{}) {
 	l.rd.Del(l.lockName(key))
 }
-

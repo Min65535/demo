@@ -2,10 +2,10 @@ package main
 
 import (
 	"bufio"
-	"os"
 	"fmt"
-	"strings"
+	"os"
 	"runtime"
+	"strings"
 )
 
 func main() {

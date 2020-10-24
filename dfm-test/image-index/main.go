@@ -31,7 +31,7 @@ func getImages(ctx *gin.Context) {
 	rawQuery := rawQueries[len(rawQueries)-1]
 	if rawQuery == "" {
 		log.QyLogger.Info("getImages rawQuery is empty")
-		ctx.Data(400, "application/json", json.StringifyJsonToBytes(gin.H{"success": false, "err_msg": "照片查询项目不能为空，举例:http://"+Host+path+"?favicon.ico"}))
+		ctx.Data(400, "application/json", json.StringifyJsonToBytes(gin.H{"success": false, "err_msg": "照片查询项目不能为空，举例:http://" + Host + path + "?favicon.ico"}))
 		return
 	}
 	realUrl := "http://" + Host + "/static/" + rawQuery
