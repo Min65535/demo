@@ -7,6 +7,7 @@ require (
 	github.com/dipperin/go-ms-toolkit v0.0.36
 	github.com/elastic/go-elasticsearch/v7 v7.5.0
 	github.com/gin-gonic/gin v1.5.0
+	github.com/go-pg/pg v8.0.7+incompatible
 	github.com/go-redis/redis v6.15.8+incompatible
 	github.com/go-resty/resty/v2 v2.2.0
 	github.com/go-sql-driver/mysql v1.5.0
@@ -22,4 +23,5 @@ require (
 	github.com/tidwall/gjson v1.2.1
 	github.com/vmihailenco/msgpack v4.0.4+incompatible // indirect
 	go.uber.org/zap v1.14.0
+	mellium.im/sasl v0.2.1 // indirect
 )
