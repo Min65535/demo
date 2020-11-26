@@ -73,4 +73,23 @@ func TestHaHa(t *testing.T) {
 
 	fmt.Println("arrNs:", json.StringifyJson(arrNs))
 	fmt.Println("arrStr:", json.StringifyJson(arrStr))
+
+	var totalCount int
+	var data []string
+	conf.Table("case").Count(&totalCount)
+	pageSize := 500
+	totalPages := (totalCount + pageSize - 1) / pageSize
+
+	for page := 1; page <= totalPages; page++ {
+		var arr []*NS
+		if err := conf.Table("case").
+			Offset((page - 1) * pageSize).
+			Limit(pageSize).Find(&arr).Error; err != nil {
+			fmt.Println("err:", err.Error())
+		}
+		for i := range arr {
+			data = append(data, arr[i].Name)
+		}
+	}
+	fmt.Println("len(data):", len(data))
 }
