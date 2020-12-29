@@ -1,9 +1,41 @@
-组合模式: 将对象组合成树形结构以表示“部分-整体”的层次结构，组合模式使得用户对单个对象和组合对象的使用具有一致性。掌握组合模式的重点是要理解清楚 “部分/整体” 还有 ”单个对象“ 与 "组合对象" 的含义。
-组合模式可以让客户端像修改配置文件一样简单的完成本来需要流程控制语句来完成的功能。
-经典案例：系统目录结构，网站导航结构等。
-
-
-命令模式: 
-
-
-备忘录模式:
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: api
+  namespace: my
+spec:
+  selector:
+    matchLabels:
+      app: api
+  replicas: 1 # tells deployment to run 2 pods matching the template
+  template:
+    metadata:
+      labels:
+        app: api
+    spec:
+      containers:
+        - name: api
+          image: "my.image.prod:5000/my_api_prod_6019fc247a3c6570066ebdf9a38eef51f32573cb"
+          env:
+            - name: db_env
+              value: "prod"
+            - name: docker_env
+              value: "2"
+            - name: run_env
+              value: "prod"
+            - name: product
+              value: "prod"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: api
+  namespace: my
+spec:
+  type: NodePort
+  selector:
+    app: api
+  ports:
+    - protocol: TCP
+      port: 3000
+      nodePort: 30000
