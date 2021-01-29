@@ -25,3 +25,5 @@ vendor/
 
 test.*
 *.txt
+
+tmp/

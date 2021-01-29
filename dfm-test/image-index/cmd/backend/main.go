@@ -34,7 +34,8 @@ func getImages(ctx *gin.Context) {
 		ctx.Data(400, "application/json", json.StringifyJsonToBytes(gin.H{"success": false, "err_msg": "照片查询项目不能为空，举例:http://" + Host + path + "?favicon.ico"}))
 		return
 	}
-	realUrl := "http://" + Host + "/static/" + rawQuery
+	// realUrl := "http://" + Host + "/static/" + rawQuery
+	realUrl := "http://" + "172.30.9.71:3001" + "/static/" + rawQuery
 	log.QyLogger.Info("getImages RealUrl:", zap.String("RealUrl", realUrl))
 	resp, err := proxyReq(realUrl)
 	if err != nil {
@@ -52,12 +53,12 @@ func getImages(ctx *gin.Context) {
 	ctx.Data(resp.StatusCode, "image/png", body)
 }
 
-//系统异常json结构体
+// 系统异常json结构体
 func systemError() string {
 	return json.StringifyJson(gin.H{"success": false, "err_msg": "system error"})
 }
 
-//发起请求
+// 发起请求
 func proxyReq(targetUrl string) (*http.Response, error) {
 	req, _ := http.NewRequest("GET", targetUrl, nil)
 	return util.HttpReq(req)
@@ -77,9 +78,9 @@ func main() {
 
 	engine := gin.New()
 	engine.Use(favicon.New("./static/favicon.ico"))
-	engine.Use(util.PrintReq())
+	// engine.Use(util.PrintReq())
 	engine.Static("/static", "./static")
-	//engine.Use(util.PrintResp())
+	// engine.Use(util.PrintResp())
 	g1 := engine.Group("/images/api/v1")
 	{
 		g1.GET("/get", getImages)
