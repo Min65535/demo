@@ -25,7 +25,7 @@ content|RegisterErr  {"error": "fail to register at 2020-04-01 16:52:43"}
 日志样例:2021-02-01 19:50:57.212	info	flowpool-812346c5-46wgh##gitlab.com/bvn/pool/inter/flow/service.(*Service).Login:67	LoginApp#checkUser	{"phone": "138123453678", "error": "xxxxxx"}
 行首正则表达式:\d+-\d+-\d+\s\d+:\d+:\d+\.\d+\s.*
 提取字段:开
-正则:(\d+-\d+-\d+\s\S+)\s(\w+)\s(\S+)##(\S+)\s(\[\S+\s\S+\]|\S+)\s+(.*)
+正则:(\d+-\d+-\d+\s\S+)\s(\w+)\s(\S+)##(\S+)\s(\[\S+\s\S+\s\S+\]|\[\S+\s\S+\]|\S+)\s+(.*)
 日志抽取内容: key|value
 sys_time|2021-02-01 19:50:57.212
 level|info
