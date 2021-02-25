@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-image-index
+image-index -p 9527

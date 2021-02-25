@@ -35,7 +35,8 @@ func getImages(ctx *gin.Context) {
 		return
 	}
 	// realUrl := "http://" + Host + "/static/" + rawQuery
-	realUrl := "http://" + "172.30.9.71:3001" + "/static/" + rawQuery
+	// realUrl := "http://" + "172.30.9.71:3001" + "/static/" + rawQuery
+	realUrl := "http://" + "image-back:" + port + "/static/" + rawQuery
 	log.QyLogger.Info("getImages RealUrl:", zap.String("RealUrl", realUrl))
 	resp, err := proxyReq(realUrl)
 	if err != nil {
@@ -64,8 +65,9 @@ func proxyReq(targetUrl string) (*http.Response, error) {
 	return util.HttpReq(req)
 }
 
+var port string
+
 func main() {
-	var port string
 	flag.StringVar(&port, "p", "3000", "端口号， 默认为3000")
 	flag.Parse()
 	util.InitLogger("image-index")
@@ -77,9 +79,10 @@ func main() {
 	}
 
 	engine := gin.New()
-	engine.Use(favicon.New("./static/favicon.ico"))
+	root, _ := util.BinaryPathGet()
+	engine.Use(favicon.New(root + "/static/favicon.ico"))
 	// engine.Use(util.PrintReq())
-	engine.Static("/static", "./static")
+	engine.Static("/static", root + "/static")
 	// engine.Use(util.PrintResp())
 	g1 := engine.Group("/images/api/v1")
 	{
