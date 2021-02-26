@@ -87,7 +87,7 @@ func InitLogger(rename ...string) {
 	switch qyenv.GetDockerEnv() {
 	case "", "0":
 	default:
-		logNameSuffix := "image-index"
+		logNameSuffix := "docker"
 		if len(rename) == 1 {
 			logNameSuffix += "_" + rename[0]
 		}

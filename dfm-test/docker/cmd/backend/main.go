@@ -70,7 +70,7 @@ var port string
 func main() {
 	flag.StringVar(&port, "p", "3000", "端口号， 默认为3000")
 	flag.Parse()
-	util.InitLogger("image-index")
+	util.InitLogger("docker")
 	env := qyenv.GetUseDocker()
 	if env == 2 {
 		gin.SetMode(gin.ReleaseMode)
