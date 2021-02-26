@@ -1,4 +1,4 @@
-FROM xl.image:5000/debian:stable
+FROM debian:latest
 
 COPY image-index /usr/bin/
 
