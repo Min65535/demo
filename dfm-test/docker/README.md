@@ -89,5 +89,8 @@ Linux核心对命名空间的支援完全隔离了工作环境中应用程序的
 ## todo
 ```text
 1. 学习了解docker compose并起一个多个组件的服务。
+多组件服务指路:
+    https://ctripcorp.github.io/apollo/#/zh/deployment/quick-start-docker
+    https://github.com/ctripcorp/apollo/tree/master/scripts/docker-quick-start
 2. 学习了解docker swarm的集群管理技术。
 ```
