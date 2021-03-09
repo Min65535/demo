@@ -74,14 +74,20 @@ Linux核心对命名空间的支援完全隔离了工作环境中应用程序的
 生产Kubernetes现在是在使用docker的镜像仓库功能。
 ```
 
-## 干货,演示环节
+## 干货,演示
 ```text
 指路====> https://github.com/Min65535/demo/tree/master/dfm-test/docker
 备用====> https://gitee.com/min65535/demo/tree/master/dfm-test/docker
 ```
 
-## 提问与解答环节
+## 提问与解答
 ```text
 一个疑问：有了容器技术，生产环境为何还需要部署虚拟机？
   虚拟机能做到硬件资源的彻底隔离，docker不行。虚拟机和docker各取长处，最佳CP。
+```
+
+## todo
+```text
+1. 学习了解docker compose并起一个多个组件的服务。
+2. 学习了解docker swarm的集群管理技术。
 ```
