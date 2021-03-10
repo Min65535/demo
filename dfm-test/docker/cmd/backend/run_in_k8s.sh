@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-docker -p 9527
+image-index -p 9527
