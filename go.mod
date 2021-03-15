@@ -22,6 +22,7 @@ require (
 	github.com/thinkeridea/go-extend v1.1.1
 	github.com/thinkerou/favicon v0.1.0
 	github.com/tidwall/gjson v1.2.1
+	github.com/urfave/cli v1.22.5
 	github.com/vmihailenco/msgpack v4.0.4+incompatible // indirect
 	go.uber.org/zap v1.14.0
 	mellium.im/sasl v0.2.1 // indirect
