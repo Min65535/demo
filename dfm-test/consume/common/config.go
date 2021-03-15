@@ -29,3 +29,7 @@ type NameAndValue struct {
 	Block  string `json:"block"`
 	Remark string `json:"remark"`
 }
+
+func(n NameAndValue) TableName() string {
+	return "case"
+}

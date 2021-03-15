@@ -1,6 +1,6 @@
 module demo
 
-go 1.13
+go 1.15
 
 require (
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
@@ -11,8 +11,9 @@ require (
 	github.com/go-redis/redis v6.15.8+incompatible
 	github.com/go-resty/resty/v2 v2.2.0
 	github.com/go-sql-driver/mysql v1.5.0
+	github.com/golang/protobuf v1.4.2
 	github.com/gorilla/websocket v1.4.2 // indirect
-	github.com/jinzhu/gorm v1.9.12
+	github.com/jinzhu/gorm v1.9.16
 	github.com/magiclvzs/antnet v1.3.1
 	github.com/nfnt/resize v0.0.0-20180221191011-83c6a9932646
 	github.com/onsi/ginkgo v1.13.0 // indirect
