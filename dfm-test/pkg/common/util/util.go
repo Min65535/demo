@@ -17,7 +17,7 @@ import (
 	"strings"
 )
 
-//获取可执行程序当前路径
+// 获取可执行程序当前路径
 func BinaryPathGet() (path string, err error) {
 	file, err := exec.LookPath(os.Args[0])
 	if err != nil {
@@ -103,7 +103,7 @@ func InitLogger(rename ...string) {
 	}
 }
 
-//处理Http请求
+// 处理Http请求
 func HttpReq(r *http.Request) (*http.Response, error) {
 	httpClient := &http.Client{}
 	return httpClient.Do(r)
