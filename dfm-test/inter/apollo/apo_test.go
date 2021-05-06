@@ -14,16 +14,16 @@ func TestMyApolloDemo(t *testing.T) {
 	}(x)
 
 	time.Sleep(1 * time.Second)
-	fmt.Println(x) // prints [7 2 3]
+	fmt.Println(x) // prints [1 2 3]
 
 	y := []int{4, 5, 6}
 	go func(arr []int) {
 		arr[0] = 8
-		fmt.Println("y arr:", arr) // prints [7 2 3]
+		fmt.Println("y arr:", arr) // prints [8 5 6]
 	}(y)
 
 	time.Sleep(1 * time.Second)
-	fmt.Println(y) // prints [7 2 3]
+	fmt.Println(y) // prints [8 5 6]
 
 	t.Skip()
 	MyApolloDemo()
