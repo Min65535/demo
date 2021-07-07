@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+### 查找
 #root=`pwd`
 #names=`ls -lh|awk '{print $9}'`
 #echo ${names}
@@ -11,10 +12,10 @@
 #  cd ${root}
 #done
 
-###
-###names=`ls -lh|grep 3月|awk '{print $9}'`
-###echo ${names}
-###for i in ${names}
-###do
-###  rm -rf ${i}
-###done
+### 删除
+#names=`ls -lh|grep 3月|awk '{print $9}'`
+#echo ${names}
+#for i in ${names}
+#do
+#  rm -rf ${i}
+#done
