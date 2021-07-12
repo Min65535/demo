@@ -12,11 +12,12 @@ require (
 	github.com/docker/docker-credential-helpers v0.6.3 // indirect
 	github.com/elastic/go-elasticsearch/v7 v7.12.0
 	github.com/fvbommel/sortorder v1.0.2 // indirect
-	github.com/gin-gonic/gin v1.7.1
+	github.com/gin-gonic/gin v1.7.2
 	github.com/go-pg/pg v8.0.7+incompatible
 	github.com/go-redis/redis v6.15.9+incompatible
 	github.com/go-resty/resty/v2 v2.6.0
 	github.com/go-sql-driver/mysql v1.6.0
+	github.com/golang/mock v1.6.0
 	github.com/golang/protobuf v1.5.2
 	github.com/jinzhu/gorm v1.9.16
 	github.com/moby/sys/mount v0.2.0 // indirect
@@ -29,6 +30,7 @@ require (
 	github.com/pkg/errors v0.9.1
 	github.com/spf13/cobra v1.1.3 // indirect
 	github.com/stretchr/testify v1.7.0
+	github.com/tealeg/xlsx v1.0.5
 	github.com/theupdateframework/notary v0.7.0 // indirect
 	github.com/thinkeridea/go-extend v1.3.2
 	github.com/thinkerou/favicon v0.1.0

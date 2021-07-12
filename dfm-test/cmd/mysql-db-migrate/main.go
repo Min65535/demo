@@ -3,9 +3,9 @@ package main
 import (
 	"demo/dfm-test/inter/consume/common"
 	"demo/dfm-test/pkg/common/db"
+	"demo/dfm-test/pkg/model"
 	"github.com/dipperin/go-ms-toolkit/log"
 	"github.com/dipperin/go-ms-toolkit/orm/gorm/mysql"
-	_ "github.com/go-sql-driver/mysql"
 	"github.com/urfave/cli"
 	"go.uber.org/zap"
 	"os"
@@ -57,6 +57,6 @@ func doMigrate(c *cli.Context) {
 	log.QyLogger.Info("run db: " + c.Command.Name)
 	mysqlDB := mysql.MakeDB(db.GetDBConfig()).GetDB()
 	mysqlDB.AutoMigrate(
-		&common.NameAndValue{},
+		&common.NameAndValue{},&model.DemoOrder{},
 	)
 }

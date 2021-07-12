@@ -4,6 +4,7 @@ import (
 	db_config "github.com/dipperin/go-ms-toolkit/db-config"
 	"github.com/dipperin/go-ms-toolkit/orm/gorm/mysql"
 	"github.com/dipperin/go-ms-toolkit/qyenv"
+	_ "github.com/go-sql-driver/mysql"
 )
 
 var MyDbConfig *db_config.DbConfig
