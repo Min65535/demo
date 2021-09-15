@@ -1,9 +1,10 @@
 package main
 
 import (
+	"demo/dfm-test/inter/attack/proxy"
 	"demo/dfm-test/pkg/common/util"
 	"fmt"
-	"gopkg.in/resty.v1"
+	"github.com/dipperin/go-ms-toolkit/json"
 	"math/rand"
 	"net"
 	"sync"
@@ -38,8 +39,9 @@ func TcpRst(i int, addr string, num int64, wg *sync.WaitGroup) error {
 	return nil
 }
 
-func HttpRst(cli *resty.Request, addr string, num int64, wg *sync.WaitGroup) error {
-	res, err := cli.Get("http://" + addr)
+func HttpRst(cli *proxy.Proxy, url string, num int64, wg *sync.WaitGroup) error {
+	var res interface{}
+	err := cli.Get(url, "", &res)
 	if err != nil {
 		fmt.Println("Get#err:", err.Error())
 		// if _, ok := err.(*url.Error); ok {
@@ -47,23 +49,24 @@ func HttpRst(cli *resty.Request, addr string, num int64, wg *sync.WaitGroup) err
 		// }
 		return err
 	}
-	fmt.Println("res:", res)
+	fmt.Println("res:", json.StringifyJson(res))
 	time.Sleep(time.Duration(num) * time.Millisecond)
 	wg.Done()
 	return nil
 }
 
 func main() {
-	addr := "172.16.10.24:3000"
+	// addr := "172.16.10.24:3000"
+	url := "https://www.qixxjutexx.com"
 	// addr := "127.0.0.1:8081"
 	ran := rand.New(rand.NewSource(time.Now().UnixNano()))
 	wg := sync.WaitGroup{}
 	// defer ci.SetCloseConnection(true)
-	// cli := resty.New().R()
+	cli := proxy.NewProxy(url)
 	wg.Add(10000)
 	for i := 0; i < 10000; i++ {
-		go TcpRst(i, addr, ran.Int63n(1000)+1, &wg)
-		// go HttpRst(cli, addr, ran.Int63n(1000)+1, &wg)
+		// go TcpRst(i, addr, ran.Int63n(1000)+1, &wg)
+		go HttpRst(cli, "", ran.Int63n(1000)+1, &wg)
 	}
 	wg.Wait()
 }
