@@ -3,6 +3,7 @@ package util
 import (
 	"bytes"
 	"errors"
+	"fmt"
 	"github.com/dipperin/go-ms-toolkit/log"
 	"github.com/dipperin/go-ms-toolkit/qyenv"
 	"github.com/gin-gonic/gin"
@@ -111,4 +112,36 @@ func HttpReq(r *http.Request) (*http.Response, error) {
 
 func RenderSuccess(c *gin.Context, resultJson interface{}) {
 	c.JSON(200, resultJson)
+}
+
+// 捕获详细panic信息
+func panicTrace(kb int) []byte {
+	s := []byte("/src/runtime/panic.go")
+	e := []byte("\ngoroutine ")
+	line := []byte("\n")
+	stack := make([]byte, kb<<10) // 4KB
+	length := runtime.Stack(stack, true)
+	start := bytes.Index(stack, s)
+	stack = stack[start:length]
+	start = bytes.Index(stack, line) + 1
+	stack = stack[start:]
+	end := bytes.LastIndex(stack, line)
+	if end != -1 {
+		stack = stack[:end]
+	}
+	end = bytes.Index(stack, e)
+	if end != -1 {
+		stack = stack[:end]
+	}
+	stack = bytes.TrimRight(stack, "\n")
+	return stack
+}
+
+// 直接defer就可以了
+func Catch(msg string) {
+	if panicErr := recover(); panicErr != nil {
+		err := string(panicTrace(32))
+		fmt.Println(msg+" catch: ", err)
+		log.QyLogger.Error(msg+"#Catch", zap.String("msg", err))
+	}
 }

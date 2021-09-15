@@ -37,6 +37,7 @@ require (
 	github.com/tidwall/gjson v1.7.4
 	github.com/urfave/cli v1.22.5
 	go.uber.org/zap v1.16.0
+	gopkg.in/resty.v1 v1.12.0
 	k8s.io/api v0.20.1
 	k8s.io/apimachinery v0.20.1
 	k8s.io/client-go v0.20.1

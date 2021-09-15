@@ -11,11 +11,11 @@ func MyApolloDemo() {
 		Cluster:        "dfm-test",
 		NameSpaceNames: []string{"manage", "default"},
 		IP:             "172.30.9.76:8090",
-		//IP:             "172.30.9.75:20180",
+		// IP:             "172.30.9.75:20180",
 	}); err != nil {
 		fmt.Println("err:", err.Error())
 		return
-		//panic(err)
+		// panic(err)
 	}
 	fmt.Println("namespace:", agollo.GetAllKeys("manage"))
 	fmt.Println("msg:", agollo.GetStringValue("msg", ""))
