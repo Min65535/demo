@@ -76,8 +76,8 @@ Linux核心对命名空间的支援完全隔离了工作环境中应用程序的
 
 ## 干货,演示
 ```text
-指路====> https://github.com/Min65535/demo/tree/master/dfm-test/docker
-备用====> https://gitee.com/min65535/demo/tree/master/dfm-test/docker
+指路====> https://github.com/Min65535/demo/tree/master/dfm-test/cmd/docker/cmd
+备用====> https://gitee.com/Min65535/demo/tree/master/dfm-test/cmd/docker/cmd
 ```
 
 ## 提问与解答
