@@ -14,9 +14,7 @@ import (
 func TcpRst(i int, addr string, num int64, wg *sync.WaitGroup) error {
 	fcc := wg.Done
 	ta := net.TCPAddr{
-		IP: net.IPv4(172, 16, 10, 16),
-		// IP: net.IPv4(14,215,177,39),
-		// IP:   net.IPv4(113, 90, 43, 222),
+		IP:   net.IPv4(172, 16, 10, 16),
 		Port: 20000 + i,
 	}
 	dr := &net.Dialer{
@@ -58,7 +56,6 @@ func HttpRst(cli *proxy.Proxy, url string, num int64, wg *sync.WaitGroup) error 
 func main() {
 	// addr := "172.16.10.24:3000"
 	url := "https://www.qixxjutexx.com"
-	// addr := "127.0.0.1:8081"
 	ran := rand.New(rand.NewSource(time.Now().UnixNano()))
 	wg := sync.WaitGroup{}
 	// defer ci.SetCloseConnection(true)
