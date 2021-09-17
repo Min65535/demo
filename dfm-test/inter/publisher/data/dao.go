@@ -1,20 +1,17 @@
 package dao
 
 import (
+	"demo/dfm-test/inter/publisher/biz"
 	"demo/dfm-test/pkg/model"
 	"github.com/dipperin/go-ms-toolkit/orm/gorm/mysql"
 )
 
-type Dao interface {
-	GetUserByAcc(account string) (*model.User, error)
-	GetUserById(id uint) (*model.User, error)
-}
 
 type Db struct {
 	db mysql.DB
 }
 
-func NewDb(db mysql.DB) Dao {
+func NewDb(db mysql.DB) biz.UserDao {
 	return &Db{db: db}
 }
 

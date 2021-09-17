@@ -4,6 +4,10 @@ type LoginReq struct {
 
 }
 
+type LoginResp struct {
+
+}
+
 type ImagePushReq struct {
 
 }

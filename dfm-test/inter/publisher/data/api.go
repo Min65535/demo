@@ -1,7 +1,8 @@
-package command
+package dao
 
 import (
 	"context"
+	"demo/dfm-test/inter/publisher/biz"
 	"fmt"
 	"github.com/dipperin/go-ms-toolkit/json"
 	dc "github.com/docker/cli/cli/command"
@@ -13,19 +14,13 @@ import (
 	"k8s.io/client-go/kubernetes"
 )
 
-type ToolCommand interface {
-	ImagePull(image string) error
-	ImagePush(image string) error
-	GetDeployment(namespace, name string) (*v1beta2.Deployment, error)
-	UpdateDeploymentImage(namespace, name, imageNew string) error
-}
-
 type ToolClient struct {
 	docCli client.APIClient
 	kbsCli kubernetes.Interface
 }
 
-func NewToolClient() ToolCommand {
+
+func NewToolClient() biz.ToolCommand {
 	// docker := exec.Command("docker")
 	// kub := exec.Command("kubectl")
 	cl, err := dc.NewDockerCli()
@@ -77,3 +72,4 @@ func (t *ToolClient) UpdateDeploymentImage(namespace, name, imageNew string) err
 	fmt.Println("new deployment:", json.StringifyJson(ndp))
 	return nil
 }
+

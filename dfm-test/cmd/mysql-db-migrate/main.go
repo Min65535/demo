@@ -57,6 +57,6 @@ func doMigrate(c *cli.Context) {
 	log.QyLogger.Info("run db: " + c.Command.Name)
 	mysqlDB := mysql.MakeDB(db.GetDBConfig()).GetDB()
 	mysqlDB.AutoMigrate(
-		&common.NameAndValue{},&model.DemoOrder{},
+		&common.NameAndValue{}, &model.DemoOrder{}, &model.User{},
 	)
 }
