@@ -1,8 +1,8 @@
 package biz
 
 import (
-	"demo/dfm-test/pkg/decode"
-	"demo/dfm-test/pkg/model"
+	"github.com/min65535/demo/dfm-test/pkg/decode"
+	"github.com/min65535/demo/dfm-test/pkg/model"
 )
 
 type UserDao interface {

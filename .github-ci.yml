@@ -1,0 +1,52 @@
+image: golang:1.16.6
+include:
+  - project: 'miningpool/mstoolkit'
+    ref: master
+    file: 'xg-ci.yml'
+
+cache: &global_cache
+  paths:
+    - mod
+  policy: pull
+
+variables:
+  # cache仅支持项目目录下的文件夹，因此需要在before_script拷贝mod文件夹到MOD_CACHE，在after_script中拷回来
+  MOD_CACHE: ${CI_PROJECT_DIR}/.go
+
+before_script:
+  - mkdir -p mod ${MOD_CACHE} && rm -rf $MOD_CACHE && mv mod ${MOD_CACHE}
+  # 提前下载依赖，否则lint阶段可能因go mod兼容问题导致下载依赖失败
+  - export GO111MODULE=on && go mod tidy -v && go mod download
+  - rundirfile='rundirfile'
+  # 写入要测试的目录例如："internal biz service"
+  - touch $rundirfile&&echo 'internal biz service'>$rundirfile
+
+stages:
+  - test
+  - build
+  - deploy
+
+build:
+  stage: build
+  only:
+    - dev
+    - master
+    - stable
+  cache:
+    # 继承全局cache设置
+    <<: *global_cache
+    # 在build阶段执行push更新cache
+    policy: pull-push
+  # extends: .go-cache
+  script:
+    - ./scripts/ci_build.sh
+    - ./scripts/ci_image.sh
+
+deploy:
+  image: roffe/kubectl
+  stage: deploy
+  only:
+    - dev
+    - master
+  script:
+    - ./scripts/ci_deploy.sh

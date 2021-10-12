@@ -1,13 +1,13 @@
 package main
 
 import (
-	"demo/dfm-test/inter/order/dao"
-	"demo/dfm-test/inter/order/handle"
-	"demo/dfm-test/inter/order/router"
-	"demo/dfm-test/inter/order/service"
-	"demo/dfm-test/pkg/common/db"
 	"github.com/dipperin/go-ms-toolkit/orm/gorm/mysql"
 	"github.com/gin-gonic/gin"
+	"github.com/min65535/demo/dfm-test/inter/order/dao"
+	"github.com/min65535/demo/dfm-test/inter/order/handle"
+	"github.com/min65535/demo/dfm-test/inter/order/router"
+	"github.com/min65535/demo/dfm-test/inter/order/service"
+	"github.com/min65535/demo/dfm-test/pkg/common/db"
 )
 
 func main() {

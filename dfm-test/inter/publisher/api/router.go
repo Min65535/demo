@@ -1,7 +1,7 @@
 package api
 
 import (
-	"demo/dfm-test/pkg/middleware"
+	"github.com/min65535/demo/dfm-test/pkg/middleware"
 	"github.com/gin-gonic/gin"
 )
 

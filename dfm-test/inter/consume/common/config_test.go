@@ -1,7 +1,7 @@
 package common
 
 import (
-	"demo/dfm-test/pkg/common/db"
+	"github.com/min65535/demo/dfm-test/pkg/common/db"
 	"fmt"
 	"github.com/dipperin/go-ms-toolkit/json"
 	"github.com/dipperin/go-ms-toolkit/log"

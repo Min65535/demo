@@ -1,7 +1,7 @@
 package main
 
 import (
-	"demo/dfm-test/inter/consume/common"
+	"github.com/min65535/demo/dfm-test/inter/consume/common"
 	"github.com/dipperin/go-ms-toolkit/log"
 	"github.com/jinzhu/gorm"
 	"go.uber.org/zap"

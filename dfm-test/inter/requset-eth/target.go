@@ -23,8 +23,8 @@ func HttpReq(r *http.Request) ([]byte, error) {
 }
 
 func main() {
-	//r :=resty.New()
-	//r.HostURL= ""
+	// r :=resty.New()
+	// r.HostURL= ""
 	var (
 		host   string
 		scheme string

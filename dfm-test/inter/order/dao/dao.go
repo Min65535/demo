@@ -1,7 +1,7 @@
 package dao
 
 import (
-	"demo/dfm-test/pkg/model"
+	"github.com/min65535/demo/dfm-test/pkg/model"
 	"github.com/jinzhu/gorm"
 
 )

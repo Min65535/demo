@@ -1,11 +1,11 @@
 package main
 
 import (
-	"demo/dfm-test/inter/rds/locker"
 	"fmt"
 	db_config "github.com/dipperin/go-ms-toolkit/db-config"
 	"github.com/dipperin/go-ms-toolkit/qyenv"
 	"github.com/go-redis/redis"
+	"github.com/min65535/demo/dfm-test/inter/rds/locker"
 	"time"
 )
 

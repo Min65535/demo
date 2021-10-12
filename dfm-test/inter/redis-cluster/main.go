@@ -26,12 +26,12 @@ func GetRedisClusterAddrArray() []string {
 	if useDocker == 1 {
 		fmt.Println("采用的是dev容器的配置")
 		var array = []string{
-			//"redis-cluster-node-1.default.svc.cluster.local:6379",
-			//"redis-cluster-node-2.default.svc.cluster.local:6379",
-			//"redis-cluster-node-3.default.svc.cluster.local:6379",
-			//"redis-cluster-node-4.default.svc.cluster.local:6379",
-			//"redis-cluster-node-5.default.svc.cluster.local:6379",
-			//"redis-cluster-node-6.default.svc.cluster.local:6379",
+			// "redis-cluster-node-1.default.svc.cluster.local:6379",
+			// "redis-cluster-node-2.default.svc.cluster.local:6379",
+			// "redis-cluster-node-3.default.svc.cluster.local:6379",
+			// "redis-cluster-node-4.default.svc.cluster.local:6379",
+			// "redis-cluster-node-5.default.svc.cluster.local:6379",
+			// "redis-cluster-node-6.default.svc.cluster.local:6379",
 			"redis-cluster-service.default.svc.cluster.local:6379",
 		}
 		clusterAddrArray = append(clusterAddrArray, array...)
@@ -48,14 +48,14 @@ func GetRedisClusterAddrArray() []string {
 		clusterAddrArray = append(clusterAddrArray, array...)
 	} else {
 		fmt.Println("采用的是非docker环境的配置,请自己组建集群")
-		//clusterAddrArray = append(clusterAddrArray, "127.0.0.1:6379")
+		// clusterAddrArray = append(clusterAddrArray, "127.0.0.1:6379")
 	}
 	return clusterAddrArray
 }
 
 func GetRedisClusterConfig() *redis.ClusterOptions {
 	return &redis.ClusterOptions{
-		//Addrs: []string{
+		// Addrs: []string{
 		//	//"172.29.58.184:6380",
 		//	//"172.29.58.184:6381",
 		//	//"172.29.59.133:6382",
@@ -75,7 +75,7 @@ func GetRedisClusterConfig() *redis.ClusterOptions {
 		//	"redis-cluster-node-4.default.svc.cluster.local:6381",
 		//	"redis-cluster-node-5.default.svc.cluster.local:6383",
 		//	"redis-cluster-node-6.default.svc.cluster.local:6385",
-		//},
+		// },
 		Addrs:        GetRedisClusterAddrArray(),
 		MinIdleConns: 10,
 		PoolSize:     100,

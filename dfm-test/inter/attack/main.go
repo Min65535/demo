@@ -1,8 +1,8 @@
 package main
 
 import (
-	"demo/dfm-test/inter/attack/proxy"
-	"demo/dfm-test/pkg/common/util"
+	"github.com/min65535/demo/dfm-test/inter/attack/proxy"
+	"github.com/min65535/demo/dfm-test/pkg/common/util"
 	"fmt"
 	"github.com/dipperin/go-ms-toolkit/json"
 	"math/rand"

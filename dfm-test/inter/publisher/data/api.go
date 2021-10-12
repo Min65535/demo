@@ -2,7 +2,7 @@ package dao
 
 import (
 	"context"
-	"demo/dfm-test/inter/publisher/biz"
+	"github.com/min65535/demo/dfm-test/inter/publisher/biz"
 	"fmt"
 	"github.com/dipperin/go-ms-toolkit/json"
 	dc "github.com/docker/cli/cli/command"

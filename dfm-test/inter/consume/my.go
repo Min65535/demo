@@ -1,7 +1,7 @@
 package main
 
 import (
-	"demo/dfm-test/inter/consume/common"
+	"github.com/min65535/demo/dfm-test/inter/consume/common"
 	"fmt"
 	"github.com/dipperin/go-ms-toolkit/json"
 	"github.com/dipperin/go-ms-toolkit/log"

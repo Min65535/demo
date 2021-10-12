@@ -1,7 +1,7 @@
 package router
 
 import (
-	"demo/dfm-test/inter/order/handle"
+	"github.com/min65535/demo/dfm-test/inter/order/handle"
 	"github.com/gin-gonic/gin"
 )
 

@@ -1,8 +1,8 @@
 package handle
 
 import (
-	"demo/dfm-test/inter/order/service"
-	"demo/dfm-test/pkg/model"
+	"github.com/min65535/demo/dfm-test/inter/order/service"
+	"github.com/min65535/demo/dfm-test/pkg/model"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"go/build"

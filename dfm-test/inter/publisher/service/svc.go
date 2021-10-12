@@ -2,8 +2,8 @@ package service
 
 import (
 	"context"
-	"demo/dfm-test/inter/publisher/api"
-	"demo/dfm-test/inter/publisher/biz"
+	"github.com/min65535/demo/dfm-test/inter/publisher/api"
+	"github.com/min65535/demo/dfm-test/inter/publisher/biz"
 )
 
 func NewSvc(uuc *biz.UserUseCase, tuc *biz.ToolUseCase) *Svc {

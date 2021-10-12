@@ -2,7 +2,7 @@ package main
 
 import (
 	"context"
-	"demo/dfm-test/pkg/common/util"
+	"github.com/min65535/demo/dfm-test/pkg/common/util"
 	"flag"
 	"fmt"
 	"github.com/dipperin/go-ms-toolkit/json"

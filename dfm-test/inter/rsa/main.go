@@ -1,8 +1,8 @@
 package main
 
 import (
-	"demo/dfm-test/inter/rsa/enc"
 	"fmt"
+	"github.com/min65535/demo/dfm-test/inter/rsa/enc"
 )
 
 func main() {

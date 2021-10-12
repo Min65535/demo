@@ -1,8 +1,8 @@
 package service
 
 import (
-	"demo/dfm-test/inter/order/dao"
-	"demo/dfm-test/pkg/model"
+	"github.com/min65535/demo/dfm-test/inter/order/dao"
+	"github.com/min65535/demo/dfm-test/pkg/model"
 	"errors"
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/assert"

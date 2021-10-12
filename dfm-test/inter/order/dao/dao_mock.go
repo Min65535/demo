@@ -5,7 +5,7 @@
 package dao
 
 import (
-	model "demo/dfm-test/pkg/model"
+	model "github.com/min65535/demo/dfm-test/pkg/model"
 	gomock "github.com/golang/mock/gomock"
 	reflect "reflect"
 )

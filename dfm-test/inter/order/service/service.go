@@ -1,8 +1,8 @@
 package service
 
 import (
-	"demo/dfm-test/inter/order/dao"
-	"demo/dfm-test/pkg/model"
+	"github.com/min65535/demo/dfm-test/inter/order/dao"
+	"github.com/min65535/demo/dfm-test/pkg/model"
 	"fmt"
 	"github.com/tealeg/xlsx"
 	"strconv"

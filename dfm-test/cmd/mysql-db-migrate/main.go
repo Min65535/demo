@@ -1,9 +1,9 @@
 package main
 
 import (
-	"demo/dfm-test/inter/consume/common"
-	"demo/dfm-test/pkg/common/db"
-	"demo/dfm-test/pkg/model"
+	"github.com/min65535/demo/dfm-test/inter/consume/common"
+	"github.com/min65535/demo/dfm-test/pkg/common/db"
+	"github.com/min65535/demo/dfm-test/pkg/model"
 	"github.com/dipperin/go-ms-toolkit/log"
 	"github.com/dipperin/go-ms-toolkit/orm/gorm/mysql"
 	"github.com/urfave/cli"

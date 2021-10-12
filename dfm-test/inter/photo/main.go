@@ -1,7 +1,7 @@
 package main
 
 import (
-	"demo/dfm-test/pkg/common/util"
+	"github.com/min65535/demo/dfm-test/pkg/common/util"
 	"flag"
 	"fmt"
 	"github.com/nfnt/resize"

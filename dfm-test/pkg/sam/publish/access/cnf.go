@@ -1,7 +1,7 @@
 package access
 
 import (
-	"demo/dfm-test/pkg/sam/publish/role"
+	"github.com/min65535/demo/dfm-test/pkg/sam/publish/role"
 )
 
 // ---------------- api ----------------

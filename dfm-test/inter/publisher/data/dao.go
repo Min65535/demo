@@ -1,8 +1,8 @@
 package dao
 
 import (
-	"demo/dfm-test/inter/publisher/biz"
-	"demo/dfm-test/pkg/model"
+	"github.com/min65535/demo/dfm-test/inter/publisher/biz"
+	"github.com/min65535/demo/dfm-test/pkg/model"
 	"github.com/dipperin/go-ms-toolkit/orm/gorm/mysql"
 )
 
