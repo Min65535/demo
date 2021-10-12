@@ -1,8 +1,8 @@
 image: golang:1.16.6
 include:
-  - project: 'miningpool/mstoolkit'
+  - project: 'min65535/demo'
     ref: master
-    file: 'xg-ci.yml'
+    file: 'min-ci.yml'
 
 cache: &global_cache
   paths:
