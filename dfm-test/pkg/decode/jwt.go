@@ -3,7 +3,7 @@ package decode
 import (
 	"crypto/rsa"
 	"errors"
-	"github.com/dgrijalva/jwt-go"
+	"github.com/golang-jwt/jwt"
 	"time"
 )
 

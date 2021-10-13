@@ -8,7 +8,6 @@ require (
 	github.com/alibabacloud-go/dm-20151123 v1.0.0
 	github.com/alibabacloud-go/tea v1.1.17
 	github.com/containerd/continuity v0.2.0 // indirect
-	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/dipperin/go-ms-toolkit v0.0.37
 	github.com/docker/cli v20.10.9+incompatible
 	github.com/docker/docker v20.10.9+incompatible
@@ -20,6 +19,7 @@ require (
 	github.com/go-redis/redis v6.15.9+incompatible
 	github.com/go-resty/resty/v2 v2.6.0
 	github.com/go-sql-driver/mysql v1.6.0
+	github.com/golang-jwt/jwt v3.2.2+incompatible
 	github.com/golang/mock v1.6.0
 	github.com/gorilla/mux v1.8.0 // indirect
 	github.com/jinzhu/gorm v1.9.16
