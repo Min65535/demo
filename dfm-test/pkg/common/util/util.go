@@ -10,12 +10,14 @@ import (
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 	"io/ioutil"
+	"math/rand"
 	"net/http"
 	"os"
 	"os/exec"
 	"path/filepath"
 	"runtime"
 	"strings"
+	"time"
 )
 
 // 获取可执行程序当前路径
@@ -144,4 +146,71 @@ func Catch(msg string) {
 		fmt.Println(msg+" catch: ", err)
 		log.QyLogger.Error(msg+"#Catch", zap.String("msg", err))
 	}
+}
+
+// 生成32位UUID
+func GenerateUUID() string {
+	// 19位纳秒时间戳
+	// 加上1位字母+12位数字/英文随机字符
+	return fmt.Sprintf("%d%s%s", time.Now().UnixNano(), GetCommonPrivateKeyLetter(1), GetCommonPrivateKey(12))
+}
+
+// 获取秘钥方法
+func GetCommonPrivateKeyNum(n uint) string {
+	var letters = []rune("0123456789")
+	b := make([]rune, n)
+	rand.Seed(time.Now().UnixNano())
+	for i := range b {
+		b[i] = letters[rand.Intn(len(letters))]
+	}
+	return string(b)
+}
+
+// 获取秘钥方法
+func GetCommonPrivateKeyLetter(n uint) string {
+	var letters = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
+	b := make([]rune, n)
+	rand.Seed(time.Now().UnixNano())
+	for i := range b {
+		b[i] = letters[rand.Intn(len(letters))]
+	}
+	return string(b)
+}
+
+// 获取秘钥方法
+func GetCommonPrivateKey(n uint) string {
+	var letters = []rune("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
+	b := make([]rune, n)
+	rand.Seed(time.Now().UnixNano())
+	for i := range b {
+		b[i] = letters[rand.Intn(len(letters))]
+	}
+	return string(b)
+}
+
+// 获得零点时间
+func GetTime(t time.Time) time.Time {
+	return time.Date(t.Year(), t.Month(), t.Day(), 0, 0, 0, 0, time.Local)
+}
+
+// 获得时间天数差
+func GetDays(start, end time.Time) int {
+	return int(GetTime(start).Sub(GetTime(end)).Hours() / 24)
+}
+
+// 获得时间段相差天数方法,传入的时间格式:"2016-01-02"
+func GetTimeArr(start, end string) (int64, error) {
+	// 转成时间戳
+	startUnix, err := time.Parse("2006-01-02", start)
+	if err != nil {
+		return 0, err
+	}
+	endUnix, err := time.Parse("2006-01-02", end)
+	if err != nil {
+		return 0, err
+	}
+	if startUnix.After(endUnix) {
+		return 0, errors.New("比较的时间不合法")
+	}
+	return int64(endUnix.Sub(startUnix).Hours()) / 24, nil
 }
