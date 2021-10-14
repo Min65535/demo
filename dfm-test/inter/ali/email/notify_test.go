@@ -12,6 +12,7 @@ func TestCreateClient(t *testing.T) {
 	directEmailAliSecret := ""
 	cl := NewClient(&directEmailAliId, &directEmailAliSecret)
 	req := &dm20151123.SingleSendMailRequest{
+		FromAlias:   tea.String("xhpl"),
 		AccountName: tea.String("vc@mail.xhpl.com"),
 		ToAddress:   tea.String("12321321321@qq.com"),
 		Subject:     tea.String("ssr系列"),
