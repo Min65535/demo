@@ -10,7 +10,7 @@ import (
 
 func main() {
 	host := "10.8.0.13"
-	go Ho(host, 10*time.Second) // 起一个协程去执行定时任务
+	go Ho(host, 10*time.Second)
 
 	go Ho(host, 5*time.Second)
 	stop := 0
