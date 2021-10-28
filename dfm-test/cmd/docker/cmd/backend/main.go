@@ -2,15 +2,8 @@ package main
 
 import (
 	"context"
-	"github.com/min65535/demo/dfm-test/pkg/common/util"
 	"flag"
 	"fmt"
-	"github.com/dipperin/go-ms-toolkit/json"
-	"github.com/dipperin/go-ms-toolkit/log"
-	"github.com/dipperin/go-ms-toolkit/qyenv"
-	"github.com/gin-gonic/gin"
-	"github.com/thinkerou/favicon"
-	"go.uber.org/zap"
 	"io/ioutil"
 	"net/http"
 	"os"
@@ -18,6 +11,14 @@ import (
 	"strings"
 	"syscall"
 	"time"
+
+	"github.com/dipperin/go-ms-toolkit/json"
+	"github.com/dipperin/go-ms-toolkit/log"
+	"github.com/dipperin/go-ms-toolkit/qyenv"
+	"github.com/gin-gonic/gin"
+	"github.com/min65535/demo/dfm-test/pkg/common/util"
+	"github.com/thinkerou/favicon"
+	"go.uber.org/zap"
 )
 
 func getImages(ctx *gin.Context) {
@@ -82,7 +83,7 @@ func main() {
 	root, _ := util.BinaryPathGet()
 	engine.Use(favicon.New(root + "/static/favicon.ico"))
 	// engine.Use(util.PrintReq())
-	engine.Static("/static", root + "/static")
+	engine.Static("/static", root+"/static")
 	// engine.Use(util.PrintResp())
 	g1 := engine.Group("/images/api/v1")
 	{
