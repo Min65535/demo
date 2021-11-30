@@ -25,5 +25,5 @@ vendor/
 
 test.*
 *.txt
-
+bin/
 tmp/
