@@ -22,7 +22,8 @@
 vendor/
 
 *.json
-
+tmp*
+test*
 test.*
 *.txt
 bin/

@@ -1,12 +1,12 @@
 package main
 
 import (
-	"github.com/min65535/demo/dfm-test/inter/consume/common"
 	"fmt"
 	"github.com/dipperin/go-ms-toolkit/json"
 	"github.com/dipperin/go-ms-toolkit/log"
 	"github.com/dipperin/go-ms-toolkit/orm/gorm/mysql"
 	_ "github.com/go-sql-driver/mysql"
+	"github.com/min65535/demo/dfm-test/inter/consume/common"
 	"os"
 	"os/signal"
 	"syscall"

@@ -1,10 +1,10 @@
 package main
 
 import (
-	"github.com/min65535/demo/dfm-test/inter/attack/proxy"
-	"github.com/min65535/demo/dfm-test/pkg/common/util"
 	"fmt"
 	"github.com/dipperin/go-ms-toolkit/json"
+	"github.com/min65535/demo/dfm-test/inter/attack/proxy"
+	"github.com/min65535/demo/dfm-test/pkg/common/util"
 	"math/rand"
 	"net"
 	"sync"

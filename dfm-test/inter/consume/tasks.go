@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/min65535/demo/dfm-test/inter/consume/common"
 	"github.com/dipperin/go-ms-toolkit/log"
 	"github.com/jinzhu/gorm"
+	"github.com/min65535/demo/dfm-test/inter/consume/common"
 	"go.uber.org/zap"
 	"strconv"
 )
