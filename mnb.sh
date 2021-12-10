@@ -29,3 +29,24 @@
 #do
 #  rm -rf ${i}
 #done
+
+## shellcheck disable=SC2006
+#names=`docker images -a|awk 'NR>1{print $3}'`
+#echo "${names}"
+#
+#for i in ${names}
+#do
+#  docker rmi -f "${i}"
+#done
+
+## shellcheck disable=SC2006
+#names=`docker ps -a|awk 'NR>1{print $1}'`
+#echo "${names}"
+#for i in ${names}
+#do
+#  echo "service: ""${i}"
+#
+#  echo "docker start to stop: ""${i}"
+#  docker stop "${i}" && docker rm "${i}"
+#  echo "${i}"" is shutdown"
+#done
