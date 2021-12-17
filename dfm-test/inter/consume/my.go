@@ -56,6 +56,7 @@ func (t *TaskServer) loadWorker() {
 
 		}
 		time.Sleep(200 * time.Millisecond)
+		fmt.Println("loadWorker:###########")
 	}
 }
 

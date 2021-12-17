@@ -20,7 +20,7 @@ mysql-init:
 	@echo "init db..."
 	@./scripts/init_db_env.sh $(ROOT) $(env)
 
-## test: run prject all unit tests
+## test: run project all unit tests
 test:
 	@echo "run project unit test"
 	@./scripts/init_db_env.sh $(ROOT)
