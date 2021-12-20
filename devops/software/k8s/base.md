@@ -79,3 +79,38 @@ subsets:
     ports:
       - port: 8080
 ```
+
+## pv-pvc-nfs
+```yaml
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: test-pvc  #TODO: give right name of nfs pv
+  namespace: test
+spec:
+  capacity:
+    storage: 100Gi #TODO: give size of this pv
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    # TODO: use the right IP
+    server: 10.4.1.2
+    # TODO: use the right export path
+    path: "/data/nfs/test"
+  persistentVolumeReclaimPolicy: Retain #TODO: specify relcaim policy Recycle or Retain
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: test-pvc
+  namespace: test
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 100Gi
+  selector:
+    matchLabels:
+      alicloud-pvname: test-pvc
+```
