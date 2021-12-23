@@ -114,3 +114,52 @@ spec:
     matchLabels:
       alicloud-pvname: test-pvc
 ```
+
+## base-deployment
+```yaml
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: _svc_var_
+  namespace: _namespace_var_
+spec:
+  selector:
+    matchLabels:
+      app: _svc_var_
+  replicas: 1 # tells deployment to run 2 pods matching the template
+  template:
+    metadata:
+      labels:
+        app: _svc_var_
+    spec:
+      containers:
+        - name: _svc_var_
+          image: _image_name_var_
+          command:
+            - "/data/_app_name_var_/bin/server"
+          args:
+            - "-config"
+            - "/data/_app_name_var_/configs/config._run_env_var_.yaml"
+          volumeMounts:
+            - mountPath: "/data/my/logs"
+              name: _app_name_var_-log
+      volumes:
+        - name: _app_name_var_-log
+          persistentVolumeClaim:
+            claimName: pvc-match-_run_env_var_
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: _svc_var_
+  namespace: _namespace_var_
+spec:
+  type: NodePort
+  selector:
+    app: _svc_var_
+  ports:
+    - protocol: TCP
+      port: _port_var_
+      nodePort: _nodePort_var_
+      name: rpc
+```
