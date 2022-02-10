@@ -20,7 +20,7 @@ func mySort(arr []int) (data []int) {
 	my := make(map[int]ArrSt)
 	for i := range arr {
 		if _, ok := my[i]; ok {
-			//if my[i].Num>
+			// if my[i].Num>
 		}
 		my[i] = ArrSt{i, arr[i]}
 	}
