@@ -1,9 +1,8 @@
 package dao
 
 import (
-	"github.com/min65535/demo/dfm-test/pkg/model"
 	"github.com/jinzhu/gorm"
-
+	"github.com/min65535/demo/dfm-test/pkg/model"
 )
 
 //go:generate mockgen -source=dao.go -package=dao -destination=dao_mock.go OrderDao

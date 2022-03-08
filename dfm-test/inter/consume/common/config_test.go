@@ -1,11 +1,11 @@
 package common
 
 import (
-	"github.com/min65535/demo/dfm-test/pkg/common/db"
 	"fmt"
 	"github.com/dipperin/go-ms-toolkit/json"
 	"github.com/dipperin/go-ms-toolkit/log"
 	_ "github.com/go-sql-driver/mysql"
+	"github.com/min65535/demo/dfm-test/pkg/common/db"
 	"go.uber.org/zap"
 	"os"
 	"strconv"
@@ -13,7 +13,7 @@ import (
 )
 
 func TestGetDbConfig(t *testing.T) {
-	os.Setenv("db_env","test")
+	os.Setenv("db_env", "test")
 	// defer db.GetDbConfigs().ClearAllData()
 	con := db.GetDbConfigs()
 	var str string

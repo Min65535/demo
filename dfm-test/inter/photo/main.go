@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/min65535/demo/dfm-test/pkg/common/util"
 	"flag"
 	"fmt"
+	"github.com/min65535/demo/dfm-test/pkg/common/util"
 	"github.com/nfnt/resize"
 	"image"
 	_ "image/gif"
@@ -54,10 +54,10 @@ func makeThumbnail(imagePath, savePath string) (string, error) {
 	imgFile, _ := os.Create(savePath)
 	defer imgFile.Close()
 
-	//// 以png格式保存文件
+	// // 以png格式保存文件
 	err = png.Encode(imgFile, m)
 	// 以jpeg格式保存文件
-	//err = jpeg.Encode(imgFile, m, &jpeg.Options{Quality: 100})
+	// err = jpeg.Encode(imgFile, m, &jpeg.Options{Quality: 100})
 	if err != nil {
 		fmt.Println("png.Encode err:", err.Error())
 		return "", err

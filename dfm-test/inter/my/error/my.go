@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	jsoniter "github.com/json-iterator/go"
 	"time"
@@ -128,26 +129,37 @@ func main() {
 	// 	fmt.Println("1111")
 	// }
 
-	cv := make(chan interface{}, 1)
-
-	go func() {
-		time.Sleep(time.Second * 10)
-		cv <- &errorString{
-			s: "hhhhh",
-		}
-	}()
-
-	// for {
-	select {
-	case res, ok := <-cv:
-		if ok {
-			if err, oks := res.(GameMatchError); oks {
-				fmt.Println("err:", err.Error())
-			}
-			break
-		}
-	}
+	// cv := make(chan interface{}, 1)
+	//
+	// go func() {
+	// 	time.Sleep(time.Second * 10)
+	// 	cv <- &errorString{
+	// 		s: "hhhhh",
+	// 	}
+	// }()
+	//
+	// // for {
+	// select {
+	// case res, ok := <-cv:
+	// 	if ok {
+	// 		if err, oks := res.(GameMatchError); oks {
+	// 			fmt.Println("err:", err.Error())
+	// 		}
+	// 		break
+	// 	}
 	// }
+	// // }
+	//
+	// fmt.Println("2222")
 
-	fmt.Println("2222")
+	t := struct {
+		time.Time
+		N int
+	}{
+		time.Date(2020, 12, 20, 0, 0, 0, 0, time.UTC),
+		5,
+	}
+
+	m, _ := json.Marshal(t)
+	fmt.Printf("%s", m)
 }
