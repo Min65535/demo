@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	jsoniter "github.com/json-iterator/go"
+	"math/rand"
 	"time"
 )
 
@@ -159,7 +160,62 @@ func main() {
 		time.Date(2020, 12, 20, 0, 0, 0, 0, time.UTC),
 		5,
 	}
+	type Coordinate struct {
+		x int32 `json:"x"`
+		y int32 `json:"y"`
+	}
 
 	m, _ := json.Marshal(t)
-	fmt.Printf("%s", m)
+	fmt.Printf("m:%s\n", m)
+
+	// for x := int32(0); x < 7; x++ {
+	// 	for y := int32(0); y < 7; y++ {
+	// 		currCoordinate := &Coordinate{
+	// 			x: x,
+	// 			y: y,
+	// 		}
+	// 		fmt.Println(currCoordinate)
+	// 	}
+	// }
+	// var ss []int
+	// ss = nil
+	// fmt.Println("ss:", len(ss))
+
+	switch {
+	case rateRun(0):
+		fmt.Println("robotAction4Blk")
+		fallthrough
+	case rateRun(100): // 道具100%
+		fmt.Println("robotActionProps")
+		fallthrough
+	case rateRun(50): // 锤子50%
+		fmt.Println("robotActionSkillHammer")
+		fallthrough
+	case rateRun(0):
+		fmt.Println("robotActionSpecialAdjacent")
+		fallthrough
+	case rateRun(0):
+		fmt.Println("robotAction3Blk")
+		fallthrough
+	case rateRun(0): // 刷新50%
+		fmt.Println("robotActionSkillSwap")
+		// fallthrough
+	default:
+		fmt.Println("robotAction3BlkRandom")
+	}
+
+}
+
+func rateRun(rateNum int32) bool {
+	var rate = float64(rateNum) / 100
+	fmt.Println("rate:", rate)
+	factor := rand.Intn(10000)
+	fmt.Println("factor:", factor)
+	if factor < int(rate*10000) {
+		fmt.Println("rateRun:", true)
+		return true
+	} else {
+		fmt.Println("rateRun:", false)
+		return false
+	}
 }
