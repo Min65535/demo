@@ -1,9 +1,10 @@
 package locker
 
 import (
+	"context"
 	"errors"
 	"fmt"
-	"github.com/go-redis/redis"
+	"github.com/go-redis/redis/v8"
 	"time"
 )
 
@@ -12,8 +13,8 @@ var (
 )
 
 type Locker interface {
-	Lock(key interface{}) error
-	Unlock(key interface{})
+	Lock(ctx context.Context, key interface{}) error
+	Unlock(ctx context.Context, key interface{})
 }
 
 type LockOption interface {
@@ -74,13 +75,13 @@ func (l *locker) lockName(key interface{}) string {
 	return l.opt.prefix + "_" + fmt.Sprintf("%v", key)
 }
 
-func (l *locker) Lock(key interface{}) error {
+func (l *locker) Lock(ctx context.Context, key interface{}) error {
 	if l.opt.maxSpin == 0 {
 		return ErrTryLockLimit
 	}
 	var loopCount int
 	for {
-		set, err := l.rd.SetNX(l.lockName(key), true, l.opt.exp).Result()
+		set, err := l.rd.SetNX(ctx, l.lockName(key), true, l.opt.exp).Result()
 		if err != nil {
 			return fmt.Errorf("redis: setnx err: %w", err)
 		}
@@ -96,6 +97,6 @@ func (l *locker) Lock(key interface{}) error {
 	return nil
 }
 
-func (l *locker) Unlock(key interface{}) {
-	l.rd.Del(l.lockName(key))
+func (l *locker) Unlock(ctx context.Context, key interface{}) {
+	l.rd.Del(ctx, l.lockName(key))
 }

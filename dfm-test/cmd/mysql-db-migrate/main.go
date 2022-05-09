@@ -1,13 +1,11 @@
 package main
 
 import (
-	"github.com/dipperin/go-ms-toolkit/log"
 	"github.com/dipperin/go-ms-toolkit/orm/gorm/mysql"
 	"github.com/min65535/demo/dfm-test/inter/consume/common"
 	"github.com/min65535/demo/dfm-test/pkg/common/db"
 	"github.com/min65535/demo/dfm-test/pkg/model"
 	"github.com/urfave/cli"
-	"go.uber.org/zap"
 	"os"
 	"strings"
 )
@@ -38,23 +36,19 @@ const _logName = "db name"
 func doCreate(c *cli.Context) {
 	conf := db.GetDBConfig()
 	utilDB := mysql.MakeDBUtil(conf)
-	log.QyLogger.Info("run db: "+c.Command.Name, zap.String(_logName, conf.DbName))
 	utilDB.CreateDB()
 }
 
 func doDrop(c *cli.Context) {
 	conf := db.GetDBConfig()
 	if strings.Contains(conf.DbName, "prod") {
-		log.QyLogger.Warn("can't drop prod db", zap.String(_logName, conf.DbName))
 		return
 	}
 	utilDB := mysql.MakeDBUtil(conf)
-	log.QyLogger.Info("run db: "+c.Command.Name, zap.String(_logName, conf.DbName))
 	utilDB.DropDB()
 }
 
 func doMigrate(c *cli.Context) {
-	log.QyLogger.Info("run db: " + c.Command.Name)
 	mysqlDB := mysql.MakeDB(db.GetDBConfig()).GetDB()
 	mysqlDB.AutoMigrate(
 		&common.NameAndValue{}, &model.DemoOrder{}, &model.User{},

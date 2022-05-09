@@ -1,10 +1,11 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	db_config "github.com/dipperin/go-ms-toolkit/db-config"
 	"github.com/dipperin/go-ms-toolkit/qyenv"
-	"github.com/go-redis/redis"
+	"github.com/go-redis/redis/v8"
 	"github.com/min65535/demo/dfm-test/inter/rds/locker"
 	"time"
 )
@@ -29,8 +30,9 @@ func GetRedisConfig() *redis.Options {
 }
 
 func MakeRedis(opts *redis.Options) *redis.Client {
+	ctx := context.Background()
 	cli := redis.NewClient(opts)
-	if err := cli.Ping().Err(); err != nil {
+	if err := cli.Ping(ctx).Err(); err != nil {
 		panic(err)
 	}
 	return cli
@@ -48,8 +50,8 @@ func main() {
 	// fmt.Println("sign:", sign)
 
 	woLocker := locker.New(rd, locker.WithExpiration(30*time.Second), locker.WithPrefix("WOrderLocker_trade"), locker.WithMaxSpin(1))
-
-	err2 := woLocker.Lock("dfm-ss")
+	ctx := context.Background()
+	err2 := woLocker.Lock(ctx, "dfm-ss")
 	if err2 != nil {
 		fmt.Println("err2:", err2.Error())
 		return

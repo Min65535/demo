@@ -4,9 +4,7 @@ import (
 	"crypto/tls"
 	"fmt"
 	"github.com/dipperin/go-ms-toolkit/json"
-	"github.com/dipperin/go-ms-toolkit/log"
 	"github.com/go-resty/resty/v2"
-	"go.uber.org/zap"
 	"math/rand"
 	"net/http"
 	"time"
@@ -79,8 +77,6 @@ func (r *Proxy) Get(api string, query string, respData interface{}) error {
 		Get(r.url + api)
 
 	if err != nil {
-		log.QyLogger.Info("status code", zap.Int("code", resp.StatusCode()))
-		log.QyLogger.Info("proxy url", zap.String("url", UrlList[urlIndex]))
 		return err
 	}
 
@@ -118,7 +114,6 @@ func (r *Proxy) Post(api string, req interface{}, respData interface{}) error {
 	}
 
 	if err = json.ParseJsonFromBytes(resp.Body(), respData); err != nil {
-		log.QyLogger.Error("requester post parse json failed", zap.String("raw resp", string(resp.Body())), zap.Error(err))
 		return err
 	}
 

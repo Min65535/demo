@@ -68,7 +68,7 @@ func newPgDB() *pg.DB {
 }
 
 func newGormDB() *gorm.DB {
-	instance, err := gorm.Open("postgres", connStr())
+	instance, err := gorm.Open("postgres", connStrGet())
 	if err != nil {
 		return nil
 	}
@@ -102,7 +102,7 @@ func main() {
 	fmt.Println(n)
 }
 
-func connStr() string {
+func connStrGet() string {
 	connStr := fmt.Sprintf("host=%s user=%s dbname=%s sslmode=disable password=%s port=%d",
 		dbConfig.Addr, dbConfig.User, dbConfig.Database, dbConfig.Password, dbConfig.Port)
 	return connStr

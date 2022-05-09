@@ -1,16 +1,18 @@
 package main
 
 import (
+	"context"
 	"flag"
 	"fmt"
 	"github.com/dipperin/go-ms-toolkit/qyenv"
-	"github.com/go-redis/redis"
+	"github.com/go-redis/redis/v8"
 	"time"
 )
 
 func makeRedisCluster(opts *redis.ClusterOptions) *redis.ClusterClient {
+	ctx := context.Background()
 	cli := redis.NewClusterClient(opts)
-	if err := cli.Ping().Err(); err != nil {
+	if err := cli.Ping(ctx).Err(); err != nil {
 		panic(err)
 	}
 	return cli
@@ -96,16 +98,16 @@ func main() {
 	flag.StringVar(&get, "get", "", "get key")
 	flag.Parse()
 	cli := makeRedisCluster(GetRedisClusterConfig())
-
+	ctx := context.Background()
 	switch {
 	case get != "":
-		getStr := cli.Get(get).Val()
+		getStr := cli.Get(ctx, get).Val()
 		fmt.Println(`get the value of the key "`+get+`" is:`, getStr)
 	case set != "":
 		if value == "" {
 			fmt.Println("the value is empty")
 		}
-		setVal, err := cli.Set(set, value, 30*time.Second).Result()
+		setVal, err := cli.Set(ctx, set, value, 30*time.Second).Result()
 		if err != nil {
 			fmt.Println("fail to set the value:", err)
 			return
