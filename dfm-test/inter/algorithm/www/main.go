@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"github.com/min65535/demo/dfm-test/inter/algorithm"
-	"time"
 )
 
 func main() {
@@ -13,8 +12,4 @@ func main() {
 		fmt.Println(mt.RandInt())
 	}
 	fmt.Println("--------end---------")
-	time.Sleep(10 * time.Second)
-	for {
-
-	}
 }
