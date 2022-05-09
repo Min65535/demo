@@ -29,8 +29,11 @@ func NewMersenneTwister(seed int) *MersenneTwister {
 	mt.MT[0] = seed
 	// 对数组的其它元素进行初始化
 	for i := 1; i < MersenneTwisterN; i++ {
-		t := MersenneTwisterInitOperand*(mt.MT[i-1]^(mt.MT[i-1]>>30)) + i
-		mt.MT[i] = t & MersenneTwisterMaxBits // 取最后的32位赋给MT[i]
+		// t := MersenneTwisterInitOperand*(mt.MT[i-1]^(mt.MT[i-1]>>30)) + i
+		// mt.MT[i] = t & MersenneTwisterMaxBits // 取最后的32位赋给MT[i]
+		pre := mt.MT[i-1]
+		tem := MersenneTwisterInitOperand*(pre^(pre>>30)) + i
+		mt.MT[i] = tem & MersenneTwisterMaxBits
 	}
 	return mt
 }
@@ -41,7 +44,10 @@ func (mt *MersenneTwister) generate() {
 		// 2^31-1 = 0x7fffffff
 		y := (mt.MT[i] & MersenneTwisterUpperBits) + (mt.MT[(i+1)%MersenneTwisterN] & MersenneTwisterLowerBits)
 		mt.MT[i] = mt.MT[(i+MersenneTwisterM)%MersenneTwisterN] ^ (y >> 1)
-		if y&1 == 1 {
+		// if y&1 == 1 {
+		// 	mt.MT[i] ^= MersenneTwisterA
+		// }
+		if y%2 > 0 {
 			mt.MT[i] ^= MersenneTwisterA
 		}
 	}

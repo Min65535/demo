@@ -12,9 +12,9 @@ func TestNewMersenneTwister(t *testing.T) {
 	inp := rand.Intn(100)
 	fmt.Println("input:", inp)
 	fmt.Println("--------start---------")
-	mt := NewMersenneTwister(inp)
-	for i := 0; i < 100; i++ {
-		fmt.Println(mt.Rand())
+	mt := NewMersenneTwister(90)
+	for i := 0; i < 10; i++ {
+		fmt.Println(mt.RandInt())
 	}
 	fmt.Println("--------end---------")
 }
