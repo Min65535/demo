@@ -2,12 +2,12 @@ package main
 
 import (
 	"fmt"
-	"github.com/min65535/demo/dfm-test/inter/algorithm"
+	"github.com/min65535/demo/dfm-test/inter/algorithm/mersennetwister"
 )
 
 func main() {
 	fmt.Println("--------start---------")
-	mt := algorithm.NewMersenneTwister(90)
+	mt := mersennetwister.NewMersenneTwister(90)
 	for i := 0; i < 10; i++ {
 		fmt.Println(mt.RandInt())
 	}
