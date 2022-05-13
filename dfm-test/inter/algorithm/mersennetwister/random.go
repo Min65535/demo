@@ -1,6 +1,8 @@
 package mersennetwister
 
-import "github.com/dipperin/go-ms-toolkit/json"
+import (
+	"github.com/dipperin/go-ms-toolkit/json"
+)
 
 // 梅森旋转算法 go
 // Mersenne Twister
@@ -36,8 +38,10 @@ type NewRandom interface {
 }
 
 type MersenneTwister struct {
-	index int
-	MT    [ALMersenneTwisterN]int // 624 * 32 - 31 = 19937
+	index       int
+	MT          [ALMersenneTwisterN]int // 624 * 32 - 31 = 19937
+	currentSeed int64
+	usageCount  int32
 }
 
 type Array []interface{}
@@ -55,6 +59,8 @@ func NewMersenneTwister(seed int) *MersenneTwister {
 	mt := &MersenneTwister{}
 	mt.index = 0
 	mt.MT[0] = seed
+	mt.currentSeed = int64(seed)
+	mt.usageCount = 0
 	// 对数组的其它元素进行初始化
 	for i := 1; i < ALMersenneTwisterN; i++ {
 		// t := MersenneTwisterInitOperand*(mt.MT[i-1]^(mt.MT[i-1]>>30)) + i
@@ -70,6 +76,16 @@ func (mt *MersenneTwister) Init(seed int) {
 	newMT := NewMersenneTwister(seed)
 	mt.index = newMT.index
 	mt.MT = newMT.MT
+	mt.currentSeed = newMT.currentSeed
+	mt.usageCount = newMT.usageCount
+}
+
+func (mt *MersenneTwister) GetSeed() int64 {
+	return mt.currentSeed
+}
+
+func (mt *MersenneTwister) GetUsageCount() int32 {
+	return mt.usageCount
 }
 
 func (mt *MersenneTwister) generate() {
@@ -98,6 +114,7 @@ func (mt *MersenneTwister) RandInt() int {
 	y = y ^ ((y << 15) & ALMersenneTwisterC) // y左移15个bit与4022730752相与,再与y进行异或
 	y = y ^ (y >> 18)                        // y右移18个bit再与y进行异或
 	mt.index = (mt.index + 1) % ALMersenneTwisterN
+	mt.usageCount++
 	return y
 }
 

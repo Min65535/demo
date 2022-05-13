@@ -14,9 +14,19 @@ func TestNewMersenneTwister(t *testing.T) {
 	fmt.Println("input:", inp)
 	fmt.Println("--------start---------")
 	mt := NewMersenneTwister(90)
-	for i := 0; i < 10; i++ {
-		fmt.Println(mt.RandInt())
-	}
+	go func() {
+		for i := 0; i < 10; i++ {
+			fmt.Println("go routine RandInt: ", mt.RandInt())
+			fmt.Println("go routine GetUsageCount:", mt.GetUsageCount())
+		}
+	}()
+	go func() {
+		for i := 0; i < 10; i++ {
+			fmt.Println("RandInt:", mt.RandInt())
+			fmt.Println("GetUsageCount:", mt.GetUsageCount())
+		}
+	}()
+	time.Sleep(time.Second * 5)
 	fmt.Println("--------end---------")
 }
 
