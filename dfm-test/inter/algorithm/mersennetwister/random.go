@@ -20,6 +20,21 @@ const (
 	ALMersenneTwisterMaxValue = 4294967295 // 2^32-1
 )
 
+type NewRandom interface {
+	// Init 初始化
+	Init(seed int)
+	// RandomFloat64Value 从[0,1)取出64位浮点数
+	RandomFloat64Value() float64
+	// RangeInt 从[min,max)取出随机整数
+	RangeInt(min, max int) int
+	// RangeFloat64 从[min,max)取出随机浮点数
+	RangeFloat64(min, max float64) float64
+	// ShuffleArray 数组洗牌
+	ShuffleArray(arr []interface{})
+	// GetRandomArray 从输入数组随机取出count个数元素数组
+	GetRandomArray(arr []interface{}, count int) []interface{}
+}
+
 type MersenneTwister struct {
 	index int
 	MT    [ALMersenneTwisterN]int // 624 * 32 - 31 = 19937
@@ -49,6 +64,12 @@ func NewMersenneTwister(seed int) *MersenneTwister {
 		mt.MT[i] = tem & ALMersenneTwisterMaxBits
 	}
 	return mt
+}
+
+func (mt *MersenneTwister) Init(seed int) {
+	newMT := NewMersenneTwister(seed)
+	mt.index = newMT.index
+	mt.MT = newMT.MT
 }
 
 func (mt *MersenneTwister) generate() {

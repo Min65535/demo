@@ -53,4 +53,28 @@ func TestMersenneTwister_GetRandomArray(t *testing.T) {
 		fmt.Println("res:", json.StringifyJson(res))
 	}
 	fmt.Println("--------end---------")
+	type inner struct {
+		My int
+	}
+	var data [][]*inner
+	if len(data) == 0 {
+		fmt.Println("22222")
+	}
+	for x := 0; x < 7; x++ {
+		var res2 []*inner
+		for y := 0; y < 7; y++ {
+
+			res2 = append(res2, &inner{My: x*10 + y})
+		}
+		data = append(data, res2)
+	}
+	fmt.Println("data:", json.StringifyJson(data))
+	fmt.Println("data len:", len(data))
+
+	var data1 [][]*inner
+	if err := json.ParseJson(json.StringifyJson(data), &data1); err != nil {
+		fmt.Println("err:", err.Error())
+	}
+
+	fmt.Println("data1:", json.StringifyJson(data1))
 }
