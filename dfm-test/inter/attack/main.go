@@ -55,6 +55,7 @@ func HttpRst(cli *proxy.Proxy, url string, num int64, wg *sync.WaitGroup) error 
 
 func main() {
 	// addr := "172.16.10.24:3000"
+	// http://101-201-102-86/rider-2021
 	url := "https://www.qixxjutexx.com"
 	ran := rand.New(rand.NewSource(time.Now().UnixNano()))
 	wg := sync.WaitGroup{}
