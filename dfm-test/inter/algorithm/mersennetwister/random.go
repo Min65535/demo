@@ -154,15 +154,27 @@ func (mt *MersenneTwister) ShuffleArray(arr []interface{}) {
 func (mt *MersenneTwister) GetRandomArray(arr []interface{}, count int) []interface{} {
 	var res []interface{}
 	if len(arr) > count {
-		var indexes []int
+		indexes := make([]int, 0)
 		for i := 0; i < count; i++ {
 			ind := mt.RangeInt(0, len(arr)-i)
+			var addSign bool
 			for j := 0; j < len(indexes); j++ {
 				if ind >= indexes[j] {
 					ind++
+				} else {
+					front := indexes[:j]
+					end := make([]int, len(indexes[j:]), cap(indexes[j:]))
+					copy(end, indexes[j:])
+					front = append(front, ind)
+					front = append(front, end...)
+					indexes = front
+					addSign = true
+					break
 				}
 			}
-			indexes = append(indexes, ind)
+			if !addSign {
+				indexes = append(indexes, ind)
+			}
 		}
 		for i := 0; i < len(indexes); i++ {
 			ind2 := indexes[i]

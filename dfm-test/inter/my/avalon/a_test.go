@@ -67,5 +67,9 @@ func TestA1(t *testing.T) {
 	if err := json.ParseJson(st, &data); err != nil {
 		fmt.Println("err:", err.Error())
 	}
+	var indexes []int
 
+	indexes[10] = 2
+
+	fmt.Println("index:", indexes)
 }
