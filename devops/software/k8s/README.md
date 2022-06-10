@@ -96,7 +96,7 @@ for i in ${apps}; do
   cp -r "${FileK8sDeploy}" "${DirBinK8sHash}"/"${depFile}"
   sed -i "s/_run_env_var_/${RUN_ENV}/g" "${depFile}"
   sed -i "s/_app_name_var_/${i}/g" "${depFile}"
-  sed -i "s/_namespace_var_/mico-match-${RUN_ENV}/g" "${depFile}"
+  sed -i "s/_namespace_var_/my-test-${RUN_ENV}/g" "${depFile}"
   sed -i "s! _image_name_var_! ${IMAGE}! g" "${depFile}"
   SvcGetName "${i}"
   name=$svcLatest
