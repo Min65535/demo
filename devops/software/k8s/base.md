@@ -140,6 +140,9 @@ spec:
           args:
             - "-config"
             - "/data/_app_name_var_/configs/config._run_env_var_.yaml"
+          env:
+            - name: run_env
+              value: _run_env_var_
           volumeMounts:
             - mountPath: "/data/my/logs"
               name: _app_name_var_-log
