@@ -45,5 +45,4 @@ func TestMY(t *testing.T) {
 	apiKey = result.(string)
 
 	fmt.Println("api:", apiKey)
-
 }
