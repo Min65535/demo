@@ -1,6 +1,6 @@
 module github.com/min65535/demo
 
-go 1.17
+go 1.18
 
 require (
 	github.com/alibabacloud-go/darabonba-openapi v0.1.18
