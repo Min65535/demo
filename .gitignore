@@ -1,3 +1,9 @@
+*
+!*.*
+!*/
+!Dockerfile
+!Makefile
+
 # Mac OS X files
 .DS_Store
 
@@ -28,3 +34,8 @@ test.*
 *.txt
 bin/
 tmp/
+
+*.tar
+*.gz
+*.zip
+*.rar

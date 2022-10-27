@@ -2,6 +2,8 @@ package avalon
 
 import (
 	"fmt"
+	"math/rand"
+	"time"
 )
 
 func searchInts(a []int, x int) int {
@@ -54,4 +56,21 @@ func binarySearch(a []int, x int) int {
 		fmt.Println("--------")
 	}
 	// return i - 1
+}
+
+func Shuffle(slice []int64) {
+	r := rand.New(rand.NewSource(time.Now().Unix()))
+	for len(slice) > 0 {
+		n := len(slice)
+		randIndex := r.Intn(n)
+		slice[n-1], slice[randIndex] = slice[randIndex], slice[n-1]
+		slice = slice[:n-1]
+	}
+}
+
+func Shuffle2(sl []int64) {
+	rand.Seed(time.Now().UnixNano())
+	rand.Shuffle(len(sl), func(i, j int) {
+		sl[i], sl[j] = sl[j], sl[i]
+	})
 }

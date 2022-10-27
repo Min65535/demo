@@ -73,3 +73,16 @@ func TestA1(t *testing.T) {
 
 	fmt.Println("index:", indexes)
 }
+
+func TestShuffle(t *testing.T) {
+	sl := []int64{1, 3, 7, 8}
+	fmt.Println(sl)
+	Shuffle(sl)
+	fmt.Println(sl)
+
+	Shuffle2(sl)
+	fmt.Println(sl)
+	nw := time.Now()
+	fmt.Println("now unix:", nw.Unix())
+	fmt.Println("now UnixNano:", nw.UnixNano())
+}
