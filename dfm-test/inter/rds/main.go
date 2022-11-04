@@ -41,6 +41,7 @@ func MakeRedis(opts *redis.Options) *redis.Client {
 func main() {
 
 	rd := MakeRedis(GetRedisConfig())
+	defer rd.Close()
 	//
 	// sign, err := rd.SetNX("dfm-sss", true, time.Second*30).Result()
 	// if err != nil {
@@ -48,14 +49,14 @@ func main() {
 	// 	// return
 	// }
 	// fmt.Println("sign:", sign)
-
-	woLocker := locker.New(rd, locker.WithExpiration(30*time.Second), locker.WithPrefix("WOrderLocker_trade"), locker.WithMaxSpin(1))
 	ctx := context.Background()
+	woLocker := locker.New(rd, locker.WithExpiration(30*time.Second), locker.WithPrefix("WOrderLocker_trade"), locker.WithMaxSpin(1))
 	err2 := woLocker.Lock(ctx, "dfm-ss")
 	if err2 != nil {
 		fmt.Println("err2:", err2.Error())
 		return
 	}
-	// defer woLocker.Unlock("dfm-ss")
+	defer woLocker.Unlock(ctx, "dfm-ss")
+	rd.Del(ctx, "dfm-ss")
 
 }
