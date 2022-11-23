@@ -24,3 +24,12 @@ func TestDeferAndReturn(t *testing.T) {
 	fmt.Println("DeferAndReturn2:", DeferAndReturn2())
 	fmt.Println("DeferAndReturn3:", DeferAndReturn3())
 }
+
+func TestDeferAndReturn1(t *testing.T) {
+	for x := int32(0); x < 7; x++ {
+		for y := int32(0); y < 7; y++ {
+
+			fmt.Printf("[%d,%d]\n", x, y)
+		}
+	}
+}
