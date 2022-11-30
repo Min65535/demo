@@ -149,17 +149,16 @@ func (m *logger) Info(an any) {
 	// 	m.cfg.now = tmt
 	// }
 
-	f, sign := FileIsExistOrCreate(fileFullPath)
+	f, first, sign := FileIsExistOrCreate(fileFullPath)
 	if !sign {
-		fmt.Println("failllllll")
 		return
 	}
 	defer f.Close()
-	nu, err := f.WriteString(fmt.Sprintf("%s\n", string(bts)))
-	if err != nil {
-		fmt.Println("WriteString err: ", err)
+	if first {
+		f.WriteString(fmt.Sprintf("%s", string(bts)))
+	} else {
+		f.WriteString(fmt.Sprintf("\n%s", string(bts)))
 	}
-	fmt.Println("nu: ", nu)
 }
 
 func Info(an any) {
@@ -187,47 +186,37 @@ func DirCheck(dir string) error {
 	return nil
 }
 
-func FileIsExistOrCreate(name string) (*os.File, bool) {
+func FileIsExistOrCreate(name string) (*os.File, bool, bool) {
+	var firstCreate bool
 	path, err := filepath.Abs(name)
 	if err != nil {
 		// fmt.Println("Abs err: ", err)
-		return nil, false
+		return nil, firstCreate, false
 	}
-	// if runtime.GOOS == "windows" {
-	// 	fmt.Println("windows")
-	// 	path = strings.Replace(path, "\\", "/", -1)
-	// }
 
 	// for unix
 	i := strings.LastIndex(path, "/")
 	if i < 0 {
-		return nil, false
+		return nil, firstCreate, false
 	}
-
-	// fmt.Println("i: ", i)
-	// fmt.Println("path1: ", path)
-	// fileName := path[i+1:]
-	// fmt.Println("fileName: ", fileName)
-	// dirName := path[0 : i+1]
-	// fmt.Println("dirName: ", dirName)
 
 	_, err1 := os.Stat(name)
 	if err1 != nil {
 		if os.IsNotExist(err1) {
 			f, err2 := os.Create(name)
 			if err2 != nil {
-				return nil, false
+				return nil, firstCreate, false
 			} else {
-				fmt.Println("success")
-				return f, true
+				firstCreate = true
+				return f, firstCreate, true
 			}
 		}
 	} else {
 		f, err3 := os.OpenFile(name, os.O_APPEND|os.O_WRONLY, os.ModeAppend)
 		if err3 != nil {
-			return nil, false
+			return nil, firstCreate, false
 		}
-		return f, true
+		return f, firstCreate, true
 	}
-	return nil, false
+	return nil, firstCreate, false
 }

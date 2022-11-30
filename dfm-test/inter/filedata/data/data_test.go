@@ -63,6 +63,6 @@ func TestFileIsExist(t *testing.T) {
 			Uid:       9528,
 			Timestamp: yesDay.UnixMilli(),
 		},
-		Extra: map[string]interface{}{"test": 2},
+		Extra: map[string]interface{}{"test": 3},
 	})
 }
