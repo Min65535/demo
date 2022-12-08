@@ -162,7 +162,7 @@ func (m *logger) Info(an any) {
 }
 
 func Info(an any) {
-	DataLogger.Info(an)
+	go DataLogger.Info(an)
 }
 
 func DirCheck(dir string) error {
