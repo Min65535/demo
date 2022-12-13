@@ -22,6 +22,7 @@ require (
 	github.com/nfnt/resize v0.0.0-20180221191011-83c6a9932646
 	github.com/philchia/agollo v2.1.0+incompatible
 	github.com/pkg/errors v0.9.1
+	github.com/robfig/cron v1.2.0
 	github.com/sirupsen/logrus v1.8.1
 	github.com/stretchr/testify v1.7.1
 	github.com/tealeg/xlsx v1.0.5
