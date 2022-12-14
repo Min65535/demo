@@ -1,6 +1,6 @@
 module github.com/min65535/demo
 
-go 1.18
+go 1.19
 
 require (
 	github.com/alibabacloud-go/darabonba-openapi v0.1.18
@@ -8,7 +8,7 @@ require (
 	github.com/alibabacloud-go/tea v1.1.17
 	github.com/dipperin/go-ms-toolkit v0.0.37
 	github.com/docker/cli v20.10.15+incompatible
-	github.com/docker/docker v20.10.15+incompatible
+	github.com/docker/docker v20.10.21+incompatible
 	github.com/elastic/go-elasticsearch/v7 v7.17.1
 	github.com/gin-gonic/gin v1.7.7
 	github.com/go-pg/pg v8.0.7+incompatible
@@ -58,7 +58,7 @@ require (
 	github.com/cpuguy83/go-md2man/v2 v2.0.0 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f // indirect
-	github.com/docker/distribution v2.7.1+incompatible // indirect
+	github.com/docker/distribution v2.8.1+incompatible // indirect
 	github.com/docker/docker-credential-helpers v0.6.4 // indirect
 	github.com/docker/go v1.5.1-1.0.20160303222718-d30aec9fd63c // indirect
 	github.com/docker/go-connections v0.4.0 // indirect
