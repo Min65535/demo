@@ -12,6 +12,7 @@ import (
 	"os/signal"
 	"path/filepath"
 	"strings"
+	"sync"
 	"syscall"
 	"time"
 )
@@ -62,13 +63,79 @@ type BigEvent struct {
 	Extra      interface{} `json:"extra"`
 }
 
+type FileIo struct {
+	first bool
+	fn    *os.File
+	lock  sync.Mutex
+}
+
+func NewFileIo(newFile string) *FileIo {
+	fn, first, sign := fileIsExistOrCreate(newFile)
+	if !sign {
+		return nil
+	}
+	return &FileIo{
+		first: first,
+		fn:    fn,
+	}
+}
+
+func (fi *FileIo) close() {
+	fi.fn.Close()
+}
+
+func (fi *FileIo) fileWrite(ll []byte) {
+	fi.lock.Lock()
+	defer fi.lock.Unlock()
+	if fi.first {
+		fi.fn.WriteString(fmt.Sprintf("%s", string(ll)))
+		fi.first = false
+	} else {
+		fi.fn.WriteString(fmt.Sprintf("\n%s", string(ll)))
+	}
+}
+
+func (fi *FileIo) fileRange(name string, yesTime21UnixMilli, nowTime21UnixMilli int64) {
+	f, err3 := os.OpenFile(name, os.O_RDONLY, 0666)
+	if err3 != nil {
+		return
+	}
+	defer f.Close()
+	rd := bufio.NewReader(f)
+	for {
+		ll, _, err := rd.ReadLine()
+		if err == io.EOF {
+			break
+		}
+		// fmt.Println("ll:", string(ll))
+		var param = &BigEvent{}
+		if errJ := json.Unmarshal(ll, param); errJ != nil {
+			continue
+		}
+		if param.PublicInfo != nil {
+			// fmt.Println("param.PublicInfo.Timestamp: ", param.PublicInfo.Timestamp)
+			if yesTime21UnixMilli <= param.PublicInfo.Timestamp && param.PublicInfo.Timestamp < nowTime21UnixMilli {
+				fi.fileWrite(ll)
+			}
+		}
+	}
+}
+
 // getTime 获得零点时间
 func getTime(t time.Time) time.Time {
 	return time.Date(t.Year(), t.Month(), t.Day(), 0, 0, 0, 0, time.Local)
 }
 
-func fileFuc() {
+func fileFuc(date string) {
 	now := time.Now()
+	if date != "" {
+		var err error
+		now, err = time.Parse("2006-01-02", date)
+		if err != nil {
+			fmt.Println("now err: ", err)
+			return
+		}
+	}
 	today := now.Format("20060102")
 	fmt.Println("today: ", today)
 	yesterdayTime := now.AddDate(0, 0, -1)
@@ -98,14 +165,19 @@ func fileFuc() {
 	fmt.Println("nowTime21: ", nowTime21.Format("20060102150405"))
 	nowTime21UnixMilli := nowTime21.UnixMilli()
 	fmt.Println("nowTime21UnixMilli: ", nowTime21UnixMilli)
+	fi := NewFileIo(filePathTrue)
+	defer fi.close()
 	if dirOrFileExist(filePathYes) {
 		fmt.Println("dirOrFileExist(filePathYes) true")
-		fileRange(filePathYes, filePathTrue, yesTime21UnixMilli, nowTime21UnixMilli)
+		fi.fileRange(filePathYes, yesTime21UnixMilli, nowTime21UnixMilli)
+		if dirOrFileExist(filePathYes) {
+			execute("gzip", filePathYes)
+		}
 	}
 
 	if dirOrFileExist(filePathTo) {
 		fmt.Println("dirOrFileExist(filePathTo) true")
-		fileRange(filePathTo, filePathTrue, yesTime21UnixMilli, nowTime21UnixMilli)
+		fi.fileRange(filePathTo, yesTime21UnixMilli, nowTime21UnixMilli)
 	}
 
 	if dirOrFileExist(filePathTrue) {
@@ -180,45 +252,6 @@ func fileIsExistOrCreate(name string) (*os.File, bool, bool) {
 	return nil, firstCreate, false
 }
 
-func fileWrite(newFile string, ll []byte) {
-	fn, first, sign := fileIsExistOrCreate(newFile)
-	if !sign {
-		return
-	}
-	if first {
-		fn.WriteString(fmt.Sprintf("%s", string(ll)))
-	} else {
-		fn.WriteString(fmt.Sprintf("\n%s", string(ll)))
-	}
-	fn.Close()
-}
-
-func fileRange(name, newFile string, yesTime21UnixMilli, nowTime21UnixMilli int64) {
-	f, err3 := os.OpenFile(name, os.O_RDONLY, 0666)
-	if err3 != nil {
-		return
-	}
-	defer f.Close()
-	rd := bufio.NewReader(f)
-	for {
-		ll, _, err := rd.ReadLine()
-		if err == io.EOF {
-			break
-		}
-		// fmt.Println("ll:", string(ll))
-		var param = &BigEvent{}
-		if errJ := json.Unmarshal(ll, param); errJ != nil {
-			continue
-		}
-		if param.PublicInfo != nil {
-			// fmt.Println("param.PublicInfo.Timestamp: ", param.PublicInfo.Timestamp)
-			if yesTime21UnixMilli <= param.PublicInfo.Timestamp && param.PublicInfo.Timestamp < nowTime21UnixMilli {
-				fileWrite(newFile, ll)
-			}
-		}
-	}
-}
-
 func execute(name string, args ...string) {
 	cmd := exec.Command(name, args...)
 	ot, err := cmd.CombinedOutput()
@@ -233,11 +266,14 @@ var (
 	spc      = flag.String("spc", "0 15 21 * * ?", "cron timer the given schedule")
 	fromPath = flag.String("from", "/data/my/logs/", "data file from path")
 	toPath   = flag.String("to", "/data/bigdata-storage/", "big data file path")
+	date     = flag.String("date", "", "2022-12-13")
 )
 
 func main() {
 	flag.Parse()
-	fc := fileFuc
+	fc := func() {
+		fileFuc(*date)
+	}
 	// */1 * * * * ? 每秒
 	// 0 0/1 * * * ? 每分
 	// 0 15 21 * * ? 指定时间
