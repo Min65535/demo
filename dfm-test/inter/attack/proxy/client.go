@@ -53,7 +53,8 @@ func NewProxy(url string) *Proxy {
 
 func InitProxyUrl() {
 	UrlList = make([]string, 0)
-	data := `["10.8.0.13:6666","10.8.0.13:6667","10.8.0.13:6668","10.8.0.13:6669","10.8.0.13:6670",""]`
+	// data := `["10.8.0.13:6666","10.8.0.13:6667","10.8.0.13:6668","10.8.0.13:6669","10.8.0.13:6670",""]`
+	data := `[]`
 	if err := json.ParseJson(data, &UrlList); err != nil {
 		return
 	}
@@ -61,11 +62,15 @@ func InitProxyUrl() {
 
 func (r *Proxy) Get(api string, query string, respData interface{}) error {
 	agentIndex := rand.New(rand.NewSource(time.Now().UnixNano())).Intn(len(AgentList))
-	urlIndex := rand.New(rand.NewSource(time.Now().UnixNano())).Intn(len(UrlList))
+
 	sleep := rand.New(rand.NewSource(time.Now().UnixNano())).Int63n(1000) + 1
 	// 限速
 	time.Sleep(time.Duration(sleep) * time.Millisecond)
-	proUrl := UrlList[urlIndex]
+	var proUrl string
+	if len(UrlList) > 0 {
+		urlIndex := rand.New(rand.NewSource(time.Now().UnixNano())).Intn(len(UrlList))
+		proUrl = UrlList[urlIndex]
+	}
 	rct := r.client
 	if proUrl != "" {
 		rct = rct.SetProxy(proUrl)

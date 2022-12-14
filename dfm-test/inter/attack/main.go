@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"github.com/dipperin/go-ms-toolkit/json"
 	"github.com/min65535/demo/dfm-test/inter/attack/proxy"
@@ -53,10 +54,19 @@ func HttpRst(cli *proxy.Proxy, url string, num int64, wg *sync.WaitGroup) error 
 	return nil
 }
 
+var (
+	urlFlag = flag.String("url", "", "url")
+)
+
 func main() {
 	// addr := "172.16.10.24:3000"
 	// http://101-201-102-86/rider-2021
-	url := "https://www.qixxjutexx.com"
+	// url := "https://www.qixxjutexx.com"
+	flag.Parse()
+	url := *urlFlag
+	if url == "" {
+		return
+	}
 	ran := rand.New(rand.NewSource(time.Now().UnixNano()))
 	wg := sync.WaitGroup{}
 	// defer ci.SetCloseConnection(true)
