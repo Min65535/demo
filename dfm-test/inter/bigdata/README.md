@@ -24,7 +24,7 @@ set -e
 
 # shellcheck disable=SC2009
 outerPid=$(ps -ef | grep 'bigdatacron' | grep -v 'grep' | awk '{print $2}')
-if [ "${outerPid}" -gt 0 ]; then kill -9 "${outerPid}"; fi
+if [ -n "${outerPid}""" ]; then kill -9 $outerPid; fi
 
 nohup ./bigdatacron -from="/data/my/logs/" -to="/data/bigdata-storage/" -spc="0 15 21 * * ?" >bigdatacron_nohup.out 2>&1 &
 
@@ -39,7 +39,7 @@ set -e
 
 # shellcheck disable=SC2009
 outerPid=$(ps -ef | grep 'bigdatacron' | grep -v 'grep' | awk '{print $2}')
-if [ "${outerPid}" -gt 0 ]; then kill -9 "${outerPid}"; fi
+if [ -n "${outerPid}""" ]; then kill -9 $outerPid; fi
 
 exit 0
 ```
