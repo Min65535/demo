@@ -147,14 +147,25 @@ func fileFuc(date string) {
 	filePathTo := fmt.Sprintf("%s%s%s/%s%s%s", *fromPath, MyName, today, MyName, today, FileLast)
 	fmt.Println("filePathTo: ", filePathTo)
 
+	filePathDirOrigin := fmt.Sprintf("%s%s%s", *fromPath, MyName, today)
+	fmt.Println("filePathDirOrigin: ", filePathDirOrigin)
+	if err := dirCheck(filePathDirOrigin); err != nil {
+		fmt.Println("filePathDirOrigin create err: ", err)
+		return
+	}
+	filePathOrigin := fmt.Sprintf("%s/%s%s", filePathDirOrigin, "mygame", FileLast)
+	fmt.Println("filePathOrigin: ", filePathOrigin)
+	filePathOriginGz := fmt.Sprintf("%s%s", filePathOrigin, ".gz")
+	fmt.Println("filePathOriginGz: ", filePathOriginGz)
+
 	filePathDirTrue := fmt.Sprintf("%s%s", *toPath, today)
 	fmt.Println("filePathDirTrue: ", filePathDirTrue)
 	if err := dirCheck(filePathDirTrue); err != nil {
 		fmt.Println("filePathDirTrue create err: ", err)
 		return
 	}
-	filePathTrue := fmt.Sprintf("%s/%s%s", filePathDirTrue, "matchgame", FileLast)
-	fmt.Println("filePathTrue: ", filePathTrue)
+	// filePathTrue := fmt.Sprintf("%s/%s%s", filePathDirTrue, "matchgame", FileLast)
+	// fmt.Println("filePathTrue: ", filePathTrue)
 
 	yesTime21 := getTime(yesterdayTime).Add(time.Duration(21) * time.Hour)
 	fmt.Println("yesTime21: ", yesTime21.Format("20060102150405"))
@@ -165,7 +176,7 @@ func fileFuc(date string) {
 	fmt.Println("nowTime21: ", nowTime21.Format("20060102150405"))
 	nowTime21UnixMilli := nowTime21.UnixMilli()
 	fmt.Println("nowTime21UnixMilli: ", nowTime21UnixMilli)
-	fi := NewFileIo(filePathTrue)
+	fi := NewFileIo(filePathOrigin)
 	defer fi.close()
 	if dirOrFileExist(filePathYes) {
 		fmt.Println("dirOrFileExist(filePathYes) true")
@@ -180,10 +191,16 @@ func fileFuc(date string) {
 		fi.fileRange(filePathTo, yesTime21UnixMilli, nowTime21UnixMilli)
 	}
 
-	if dirOrFileExist(filePathTrue) {
-		execute("gzip", filePathTrue)
+	if dirOrFileExist(filePathOrigin) {
+		execute("ls", "-lh", filePathDirOrigin)
+		execute("rm", "-rf", filePathOriginGz)
+		execute("gzip", filePathOrigin)
+		execute("ls", "-lh", filePathDirOrigin)
 	}
-	execute("ls", "-alh")
+	if dirOrFileExist(filePathOriginGz) {
+		execute("cp", "-rf", filePathOriginGz, filePathDirTrue)
+	}
+	execute("ls", "-lh", filePathDirTrue)
 }
 
 func dirOrFileExist(dir string) bool {
