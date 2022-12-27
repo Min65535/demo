@@ -107,6 +107,9 @@ func (fi *FileIo) fileRange(name string, yesTime21UnixMilli, nowTime21UnixMilli 
 		if err == io.EOF {
 			break
 		}
+		if err != nil {
+			return
+		}
 		// fmt.Println("ll:", string(ll))
 		var param = &BigEvent{}
 		if errJ := json.Unmarshal(ll, param); errJ != nil {
