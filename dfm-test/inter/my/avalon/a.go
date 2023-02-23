@@ -2,6 +2,7 @@ package avalon
 
 import (
 	"fmt"
+	"math"
 	"math/rand"
 	"time"
 )
@@ -73,4 +74,15 @@ func Shuffle2(sl []int64) {
 	rand.Shuffle(len(sl), func(i, j int) {
 		sl[i], sl[j] = sl[j], sl[i]
 	})
+}
+
+func MoneyTotal(old, base, rate, year float64) float64 {
+	var tol float64
+	tr := math.Pow(1+rate, year) * old
+	tol = tol + tr
+	for i := 1; i < int(year); i++ {
+		vl := math.Pow(1+rate, float64(i)) * base
+		tol = tol + vl
+	}
+	return tol
 }

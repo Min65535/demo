@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"github.com/dipperin/go-ms-toolkit/json"
 	"sort"
+	"strconv"
+	"strings"
 	"testing"
 	"time"
 )
@@ -85,4 +87,27 @@ func TestShuffle(t *testing.T) {
 	nw := time.Now()
 	fmt.Println("now unix:", nw.Unix())
 	fmt.Println("now UnixNano:", nw.UnixNano())
+
+	for _, v := range strings.Split("2", "_") {
+		fmt.Println("v: ", v)
+		gdID, _ := strconv.Atoi(v)
+		fmt.Println("gd: ", gdID)
+	}
+}
+
+func TestMoneyTotal(t *testing.T) {
+	ta := MoneyTotal(123267.61, 59644, 0.02, 30)
+	fmt.Println("total:", int64(ta))
+
+	bal := ta / 480
+	fmt.Println("bal:", int64(bal))
+
+	no := time.Now()
+	noUnix := time.Now().Unix()
+	fmt.Println("no:", no)
+	fmt.Println("noUnix:", noUnix)
+	bef := no.Add(time.Duration(-5) * time.Minute)
+	befUnix := bef.Unix()
+	fmt.Println("bef:", bef)
+	fmt.Println("befUnix:", befUnix)
 }
