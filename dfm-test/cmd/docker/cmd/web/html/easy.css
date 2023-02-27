@@ -1,0 +1,23 @@
+body {
+    text-align: center
+}
+
+#dc5 {
+    margin: 0 auto;
+    width: 1000px;
+    height: 500px
+}
+
+#in1 {
+    margin: 0 auto;
+    border: 1px solid #149770;
+    width: 500px;
+    height: 28px
+}
+
+#bt1 {
+    margin: 0 auto;
+    border: 1px solid #149770;
+    width: 100px;
+    height: 30px
+}

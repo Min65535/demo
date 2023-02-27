@@ -1,0 +1,49 @@
+image: golang:1.16.6
+
+cache: &global_cache
+  paths:
+    - mod
+  policy: pull
+
+variables:
+  # cache仅支持项目目录下的文件夹，因此需要在before_script拷贝mod文件夹到MOD_CACHE，在after_script中拷回来
+  MOD_CACHE: ${CI_PROJECT_DIR}/.go
+
+before_script:
+  - mkdir -p mod ${MOD_CACHE} && rm -rf $MOD_CACHE && mv mod ${MOD_CACHE}
+  # 提前下载依赖，否则lint阶段可能因go mod兼容问题导致下载依赖失败
+  - export GO111MODULE=on && go mod tidy -v && go mod download
+
+stages:
+  - test
+
+# 执行coverage
+coverage:
+  stage: test
+  only:
+    - dev
+    - master
+    - stable
+  cache:
+    # 继承全局cache设置
+    <<: *global_cache
+    # 在build阶段执行push更新cache
+    policy: pull-push
+  script:
+    - readfile=`ls -lh|grep 'rundirfile'|awk '{print $9}'`
+    - echo ${readfile}
+    - localfile=`cat $readfile`
+    - echo ${localfile}
+    - testfile="profile.cov"
+    - testGoFiles="data"
+    - for p in ${localfile};do testGoFiles="$testGoFiles\|${p}";done
+    - echo ${testGoFiles}
+    - go test -v $(go list ./... | grep ${testGoFiles}) -coverprofile=${testfile} ./... env=ci
+    - cover=$(go tool cover -func ${testfile} | tail -n 1 | awk '{print $3}' | awk '{ gsub(/%/,""); print $0 }')
+    - echo ${cover}
+    - profile=`ls -lh|grep ${testfile}|awk '{print $9}'`
+    - echo ${profile} ${testfile}|awk '{if($1==$2){rm $profile}else{printf"no file %s\n",$2}}'
+    - passLine=60.0
+    - passLine=`echo ${COVERAGE_PASS_LINE} ${passLine}|awk '{if($1>$2){printf"%f",$1}else{printf"%f",$2}}'`
+    - echo ${passLine}
+    - echo ${cover} ${passLine}|awk '{if($1>$2){printf"current coverage rate:%f%%, require coverage rate:%f%%\n",$1,$2}else{printf"current coverage rate:%f%%, require coverage rate:%f%%\n",$1,$2; exit 1}}'

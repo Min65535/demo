@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+option go_package = "gitlab.net/my/common/api/game/cmd_stream";
+option java_package = "com.min.protobuf";
+option java_outer_classname = "Pbcmd_stream";
+
+
+package cmd_stream;
+
+service CmdStreamService {
+    // 双向流通道,处理命令
+    rpc CmdStream(stream CmdStreamReq) returns (stream CmdStreamRsp);
+}
+
+message CmdStreamReq {
+    int64 uid = 1;
+    int64 seq = 2;
+    int64 version = 3;
+    int32 cmd = 4; // 不同业务协议号
+    bytes  data = 5; // 不同业务对应不同的消息结构
+}
+
+message CmdStreamRsp {
+    int64 uid = 1;
+    int64 seq = 2;
+    int64 version = 3;
+    int32 cmd = 4; // 不同业务协议号
+    bytes  data = 5; // 不同业务对应不同的消息结构
+};

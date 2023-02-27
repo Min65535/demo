@@ -1,0 +1,1 @@
+## Mersenne Twister 梅森旋转算法 go

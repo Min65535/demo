@@ -1,0 +1,15 @@
+network:
+  ethernets:
+    eno1:
+      addresses:
+        - 15.21.18.22/25
+      gateway4: 15.21.18.1
+      nameservers:
+        addresses:
+          - 8.8.8.8
+        search: [223.5.5.5,223.6.6.6]
+      optional: true
+    eno2:
+      addresses:
+        - 192.168.199.11/24
+  version: 2
