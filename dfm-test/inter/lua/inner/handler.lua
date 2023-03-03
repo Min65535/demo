@@ -1,0 +1,5 @@
+handler = {
+    ["appId"] = "",
+    ["secretKey"] = "",
+    ["url"] = ""
+}

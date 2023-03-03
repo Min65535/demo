@@ -1,0 +1,1 @@
+local abTestGroupSimpleInfo={gid=0,}
