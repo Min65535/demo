@@ -132,3 +132,5 @@ func (lru *Entity[T]) String() string {
 	return strings.TrimSuffix(ans, "-->")
 
 }
+
+//Issue a POSTrequest to this endpoint to update a Creative Set’s name or to create a new Creative Set. To create a new Creative Set, don’t fill in the creative_set_idin the request URL nor the request body. A Creative Set is a collection of assets that can be combined together to generate many ads so that you do not need to upload each asset multiple times. Creative Sets also include information about the languages that the underlying assets are in.
