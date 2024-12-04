@@ -8,7 +8,7 @@ require (
 	github.com/alibabacloud-go/tea v1.1.17
 	github.com/dipperin/go-ms-toolkit v0.0.37
 	github.com/docker/cli v20.10.15+incompatible
-	github.com/docker/docker v20.10.21+incompatible
+	github.com/docker/docker v20.10.24+incompatible
 	github.com/elastic/go-elasticsearch/v7 v7.17.1
 	github.com/gin-gonic/gin v1.7.7
 	github.com/go-pg/pg v8.0.7+incompatible
